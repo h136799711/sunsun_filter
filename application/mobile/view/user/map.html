@@ -1,0 +1,147 @@
+{extend name="template/base_default"}
+{block name="header"}
+<link rel="stylesheet" href="__CSS__/common.css">
+<link rel="stylesheet" href="__CSS__/diver_report/index.css">
+<style type="text/css">
+    body, html,#allmap {width: 100%;height: 100%;overflow: hidden;margin:0;font-family:"微软雅黑";}
+    .map-bar{
+        position: absolute;
+        top:10px;
+        height: 50px;
+        line-height: 50px;
+        font-size: 15px;
+        background: white;
+        width:100%;
+    }
+    .map-bar span{
+        float:left;
+        height: 100%;
+    }
+    #address{
+        line-height: 25px;
+        font-size: 14px;
+        width:210px
+    }
+    .map-bar i,.map-bar a{
+        float: left;
+        height: 100%;
+        width:30px;
+        line-height: 50px;
+    }
+    .map-btn{
+        position: fixed;
+        width:100%;
+        bottom:20px;
+    }
+    .map-btn button{
+        display: block;
+        color:white;
+        border:none;
+        padding:10px 8px;
+        font-size: 18px;
+        background: deepskyblue;
+        border-radius: 4px;
+        margin:0 auto;
+        width:80%
+    }
+    .map-btn .btn-space{
+        display: inline-block;
+        width: 15px;
+    }
+</style>
+<script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=wd1ettn1OE0Gg98PR8L0PYl7XkKSxFUU"></script>
+{/block}
+{block name="body"}
+<div id="allmap"></div>
+<!--<div class="map-bar">
+    <a href="{:url('repair/report')}"><i class="anticon anticon-left"></i></a>
+    <span>当前位置：</span><span id="address"></span>
+</div>-->
+<div class="map-btn">
+    <a href="{:url('repair/report')}"><button >我选好了</button></a>
+</div>
+{/block}
+{block name="footer"}
+
+<script type="text/javascript">
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");
+    map.enableScrollWheelZoom(true);
+    var geolocation = new BMap.Geolocation();
+    geolocation.getCurrentPosition(function(r){
+        if(this.getStatus() == BMAP_STATUS_SUCCESS){
+            /*var myIcon = new BMap.Icon("{$cur_user_avatar}", new BMap.Size(25,25));//标注的图标和大小
+            var mk = new BMap.Marker(r.point,{icon:myIcon});// 创建标注*/
+
+
+            var mk = new BMap.Marker(r.point);// 创建标注
+            map.addOverlay(mk);// 将标注添加到地图中
+            mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+            map.panTo(r.point);
+            var point = new BMap.Point(r.point.lng,r.point.lat);
+            map.centerAndZoom(point,15);
+            var geoc = new BMap.Geocoder();
+            //mk.enableDragging();//允许标注拖拽
+            //首次进入将经纬度存进sessionstorage
+            geoc.getLocation(r.point, function(rs){
+                var addComp = rs.addressComponents;
+                sessionStorage.clear();
+                sessionStorage.address = addComp.province + "" + addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber;
+                sessionStorage.lng = r.point.lng;
+                sessionStorage.lat = r.point.lat;
+                //在地图上方显示当前地址
+                //$('#address').text(addComp.province + "" + addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber);
+                var opts = {
+                    position : r.point,    // 指定文本标注所在的地理位置
+                    offset   : new BMap.Size(30, 30)    //设置文本偏移量
+                };
+                var label = new BMap.Label(addComp.province + "" + addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber, opts);  // 创建文本标注对象
+                label.setStyle({
+                    color : "black",
+                    border:'1px solid black',
+                    fontSize : "12px",
+                    height : "24px",
+                    lineHeight : "24px",
+                    fontFamily:"微软雅黑"
+                });
+                map.addOverlay(label);
+            });
+
+            map.addEventListener("click", function(e){
+                map.clearOverlays();//清空标注
+                var mk = new BMap.Marker(e.point);// 创建标注
+                map.addOverlay(mk);// 将标注添加到地图中
+                mk.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
+                var pt = e.point;
+                geoc.getLocation(pt, function(rs){
+                    var addComp = rs.addressComponents;
+                    sessionStorage.clear();
+                    sessionStorage.address = addComp.province + "" + addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber;
+                    sessionStorage.lng = e.point.lng;
+                    sessionStorage.lat = e.point.lat;
+                    //在地图上方显示当前地址
+                    //$('#address').text(addComp.province + "" + addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber);
+                    var opts = {
+                        position : pt,    // 指定文本标注所在的地理位置
+                        offset   : new BMap.Size(-50, -50)    //设置文本偏移量
+                    };
+                    var label = new BMap.Label(addComp.province + "" + addComp.city + "" + addComp.district + "" + addComp.street + "" + addComp.streetNumber, opts);  // 创建文本标注对象
+                    label.setStyle({
+                        color : "black",
+                        border:'1px solid black',
+                        fontSize : "12px",
+                        height : "24px",
+                        lineHeight : "24px",
+                        fontFamily:"微软雅黑"
+                    });
+                    map.addOverlay(label);
+                });
+            });
+        }
+        else {
+            $.toptip('自动获取地址失败', 'error');
+        }
+    },{enableHighAccuracy: true});
+</script>
+{/block}

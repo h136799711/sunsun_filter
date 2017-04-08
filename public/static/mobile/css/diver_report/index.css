@@ -1,0 +1,168 @@
+.diver_report-btn{
+    height:60px;
+    width:100%;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+    overflow: hidden;
+}
+.diver_report-btn-left,.diver_report-btn-right{
+    float: left;
+    width:50%;
+}
+.diver_report-btn-left a{
+    float: right;
+    text-align: center;
+    height:30px;
+    line-height: 30px;
+    width:60px;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    background: deepskyblue;
+    color:white;
+    margin-top: 15px;
+}
+.diver_report-btn-right a{
+    float: left;
+    text-align: center;
+    height:30px;
+    line-height: 30px;
+    width:60px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background: #e0e0e0;
+    color:black;
+    margin-top: 15px;
+}
+/*address输入框*/
+.diver-report-address{
+    margin-top:5px
+}
+.diver_report-item-address{
+    width:80%;
+    height: 80px;
+    margin:20px 10%;
+    background: #e0e0e0;
+    overflow: hidden;
+}
+#diver_report-address{
+    width:80%;
+    border:none;
+    height: 60px;
+    margin-top: 10px;
+    line-height: 30px;
+    background: #e0e0e0;
+    font-size: 14px;
+}
+#diver_report-address:focus{
+    outline: none;
+}
+/**/
+.diver_report-item{
+    width:80%;
+    height: 40px;
+    margin:20px 10%;
+    background: #e0e0e0;
+    overflow: hidden;
+}
+.diver_report-item-left{
+    float: left;
+    width:20%;
+    font-size: 13px;
+    text-align: center;
+    line-height: 40px;
+}
+.diver_report-item-right{
+    float: left;
+    width:80%;
+    overflow: hidden;
+}
+.diver_report-item-right input{
+    width:80%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border:none;
+    height: 30px;
+    margin-top: 5px;
+    background: #e0e0e0;
+    font-size: 14px;
+}
+.diver_report-item-right input:focus{
+    outline: none;
+}
+.diver_report-item-right i{
+    float: right;
+    width:20%;
+    font-size: 16px;
+    text-align: center;
+    line-height: 40px;
+}
+/*第二种输入框*/
+.diver_report-item-right2{
+    float: left;
+    width:80%;
+    overflow: hidden;
+}
+.diver_report-item-right2 input{
+    width:100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border:none;
+    height: 30px;
+    margin-top: 5px;
+    background: #e0e0e0;
+    font-size: 14px;
+}
+.diver_report-item-right2 input:focus{
+    outline: none;
+}
+/*第三种输入框*/
+.diver_report-item3{
+    width:80%;
+    height: 140px;
+    margin:20px 10%;
+    background: #e0e0e0;
+    overflow: hidden;
+}
+.diver_report-item-left3{
+    float: left;
+    width:30%;
+    font-size: 13px;
+    text-align: center;
+    line-height: 40px;
+}
+.diver_report-item-right3{
+    float: left;
+    width:70%;
+    overflow: hidden;
+}
+.diver_report-item-right3 textarea{
+    width:80%;
+    border:none;
+    height: 130px;
+    margin-top: 9px;
+    background: #e0e0e0;
+    font-size: 14px;
+}
+.diver_report-item-right3 textarea:focus{
+    outline: none;
+}
+
+.diver_report-submit{
+    width:80%;
+    margin: 30px 10%;
+}
+.diver_report-submit button{
+    width:100%;
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    background: deepskyblue;
+    color:white;
+    border:none;
+    border-radius: 4px;
+}
+.repair-report-form{
+    padding-bottom:70px;
+}

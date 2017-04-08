@@ -1,0 +1,20 @@
+{extend name="template/base_default"}
+{block name="header"}
+<link rel="stylesheet" href="__CSS__/common.css">
+<link rel="stylesheet" href="__CSS__/report_busy/index.css">
+{/block}
+{block name="body"}
+<div class="report-busy-btn">
+    <div class="report-busy-btn-left"><a href="">报修</a></div>
+    <div class="report-busy-btn-right"><a href="{:url('user/order1')}">订单</a></div>
+</div>
+<div class="report-busy-img"><img src="__IMG__/user/be_null.png" /></div>
+<div class="report-busy-text">请您结束本次订单后在进行下一单哦~</div>
+{/block}
+{block name="footer"}
+<script type="text/javascript" src="__JS__/common.js"></script>
+<script type="text/javascript" src="__JS__/index/common.js"></script>
+<script type="text/javascript">
+
+</script>
+{/block}

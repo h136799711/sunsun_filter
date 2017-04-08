@@ -1,0 +1,35 @@
+.ant-carousel .slick-slider{
+    padding:0
+}
+#app{
+    width:80%;
+    margin:10px 10% 0 10%;
+}
+.content{
+    padding-bottom:100px;
+    overflow: hidden;
+}
+.index-item{
+    float:left;
+    width:45%;
+    margin:10px 2.5%;
+    background: white;
+    border-radius: .2rem;
+}
+.index-item-pic{
+    width:16vw;
+    height:16vw;
+    float:left;
+    margin:4vw 2vw
+}
+.index-item-pic img{
+    width:100%;
+    height:100%
+}
+.index-item-text{
+    float:left;
+    line-height: 24vw;
+    font-size:15px;
+    color: #2c2c2c
+}
+

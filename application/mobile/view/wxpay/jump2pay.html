@@ -1,0 +1,47 @@
+{extend name="template/base_default"}
+{block name="header"}
+<link rel="stylesheet" href="__CSS__/common.css">
+{/block}
+{block name="body"}
+<br/>
+<div style="text-align: center;margin-top:20%">
+    <font color="#9ACD32"><b>该笔订单支付金额为<br><span style="color:#f00;font-size:50px">{$price}</span></b></font><br/><br/>
+</div>
+<div align="center">
+    <button style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" onclick="callpay()" >立即支付</button>
+</div>
+{/block}
+{block name="footer"}
+
+<script type="text/javascript">
+    //调用微信JS api 支付
+    function jsApiCall()
+    {
+        WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                {$jsApiParameters},
+                function(res){
+
+                    if(res.err_msg == "get_brand_wcpay_request:ok" ) {
+                        window.location.href = "{:url('wxpay/paysuccess',array('from'=>$from))}";
+                    }
+                    // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                }
+        );
+    }
+
+    function callpay()
+    {
+        if (typeof WeixinJSBridge == "undefined"){
+            if( document.addEventListener ){
+                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+            }else if (document.attachEvent){
+                document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+            }
+        }else{
+            jsApiCall();
+        }
+    }
+</script>
+{/block}

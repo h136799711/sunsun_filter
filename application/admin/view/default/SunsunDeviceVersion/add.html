@@ -1,0 +1,116 @@
+{extend name="default/template/base_index" /}
+
+
+{block name="area_header"}
+
+<link type="text/css" rel="stylesheet" href="__CDN__/jquery-uploadify/3.2.1/uploadify.css" />
+<script type="text/javascript" src="__CDN__/jquery-uploadify/3.2.1/jquery.uploadify.min.js"></script>
+{/block}
+
+{block name="area_body"}
+{include file="default/Widget/topbar" /}
+<div class="admin-main container-fluid">
+	{include file="default/Widget/left" /}
+	<div class="admin-main-content">
+		{include file="default/Widget/breadcrumb" /}
+		<!-- form -->
+		<form class="form-horizontal well validateForm">
+			<fieldset>
+				<legend>
+					版本添加</legend>
+				<div class="form-group">
+					<label  class="col-md-2 col-lg-2 control-label">设备类型</label>
+					<div class="col-md-10 col-lg-10">
+						<input type="text" value="{$device_type}" class="required form-control input-short" name="device_type"  placeholder="请输入设备类型">
+					</div>
+				</div>
+				<div class="form-group">
+					<label  class="col-md-2 col-lg-2 control-label">设备名称</label>
+					<div class="col-md-10 col-lg-10">
+						<input type="text" class="required form-control input-normal" name="device_name"  placeholder="请输入设备名称">
+					</div>
+				</div>
+				<div class="form-group">
+					<label  class="col-md-2 col-lg-2 control-label">版本号</label>
+					<div class="col-md-10 col-lg-10">
+						<input type="text" class="required form-control input-normal" name="version"  value="" placeholder="请输入设备版本">
+						<div class="help-block">最新版本: {empty name="latest"}--{else/}{$latest}{/empty} </div>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label  class="col-md-2 col-lg-2 control-label">更新包</label>
+					<div class="col-md-10 col-lg-10"><a href="javascript:void(0);" id="upload_file"><i class="fa fa-upload"></i>上传</a>
+						<div class="help-block j_upload"></div>
+					</div>
+				</div>
+				<div class="form-group hide">
+					<label  class="col-md-2 col-lg-2 control-label">bytes(待修改)</label>
+					<div class="col-md-10 col-lg-10">
+						<input type="text" class="j_bytes required form-control input-normal" name="bytes" disabled="disabled" value="512" placeholder="版本大小">
+					</div>
+				</div>
+
+
+				<div class="form-group hide">
+					<label  class="col-md-2 col-lg-2 control-label">url(待修改)</label>
+					<div class="col-md-10 col-lg-10">
+						<input type="text" class="j_url required form-control input-normal" name="url"  placeholder="更新包路径">
+					</div>
+				</div>
+				<div class="form-group">
+					<label  class="col-md-2 col-lg-2 control-label">版本说明</label>
+					<div class="col-md-10 col-lg-10">
+						<textarea rows="5"  class=" form-control input-normal"  placeholder="输入版本说明" name="version_desc"></textarea>
+
+					</div>
+				</div>
+				<div class="form-group">
+					<label  class="col-md-2 col-lg-2 control-label">&nbsp;</label>
+					<div class="col-lg-10 col-md-10">
+						<a target-form="validateForm" class="ajax-post btn btn-primary" href="{:url('SunsunDeviceVersion/add')}" autofocus="autofocus"><i class="fa fa-save"></i> {:L('BTN_SAVE')}</a>
+						<a class="btn btn-default " href="{$_g_ret_url}" target="_self"><i class="fa fa-times-circle"></i> {:L('BTN_CANCEL')}</a>
+					</div>
+				</div>
+			</fieldset>
+		</form>
+		<!-- form -->
+	</div>
+
+</div>
+{/block}
+
+{block name="area_footer"}
+
+<script src="__CDN__/jquery-validation/1.13.1/jquery.validate.min.js"></script>
+<script src="__CDN__/jquery-validation/1.13.1/localization/messages_zh.min.js"></script>
+<script>
+	$(function () {
+
+        $("#upload_file").uploadify({
+            'buttonClass': 'btn btn-primary btn-sm',
+            "height": "30px",
+            "swf": "__UPLOAD__/jquery-uploadify/3.2.1/uploadify.swf",
+            "fileObjName": "user_file", //wxshop
+            "buttonText": "<i class='fa fa-upload'></i>本地上传",
+            "uploader": "{:url('File/uploadUserFile',array('session_id'=>session_id()))}",
+            "width": 120,
+            'removeTimeout': 1,
+            'fileTypeExts': '*.bin; *.doc;',
+            "onUploadSuccess": uploadPicture
+        });
+
+
+        function uploadPicture(file, data) {
+            var data = $.parseJSON(data);
+            if (data.status) {
+                $(".j_bytes").val(data.size);
+                $(".j_url").val(data.id);
+				$(".j_upload").text("上传成功");
+            } else {
+                $.scojs_message(data.info, $.scojs_message.TYPE_OK);
+            }
+        }
+    })
+</script>
+{/block}

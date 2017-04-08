@@ -1,0 +1,66 @@
+.reporting-btn{
+    height:60px;
+    width:100%;
+    background: #fff;
+    border-bottom: 1px solid #eaeaea;
+    overflow: hidden;
+}
+.reporting-btn-left,.reporting-btn-right{
+    float: left;
+    width:50%;
+}
+.reporting-btn-left a{
+    float: right;
+    text-align: center;
+    height:30px;
+    line-height: 30px;
+    width:60px;
+    border-radius: 4px;
+    background: deepskyblue;
+    color:white;
+    margin-top: 15px;
+}
+.reporting-btn-right a{
+    float: left;
+    text-align: center;
+    height:30px;
+    line-height: 30px;
+    width:60px;
+    border-radius: 4px;
+    background: #e0e0e0;
+    color:black;
+    margin-top: 15px;
+}
+.reporting-btn-right button{
+    float: right;
+    margin-right: 10px;
+    border:none;
+    color:deepskyblue;
+    background: #fff;
+    margin-top: 20px;
+    font-size: 16px;
+}
+.reporting-text{
+    text-align: center;
+    margin:30px 0;
+    font-size: 18px;
+    color:black
+}
+.reporting-img{
+    margin:0 auto;
+    width:250px;
+    height: 250px;
+}
+.reporting-img img{
+    width:100%;
+    height:100%
+}
+.reporting-time{
+    text-align: center;
+    color:black;
+    font-size: 16px;
+}
+.reporting-time span{
+    font-size: 18px;
+    color:orangered;
+}

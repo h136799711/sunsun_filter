@@ -1,0 +1,202 @@
+/**user**/
+.user{
+    width: 1200px;
+    margin: 0 auto;
+    height: 100%;
+    overflow: hidden;
+}
+.user .top-user{
+    width:250px;
+    height: 250px;
+    margin: 25px auto 0 auto;
+    color: black;
+}
+.user .top-user .user-pic{
+    width: 120px;
+    height: 120px;
+    background: white;
+    border-radius: 60px;
+    overflow: hidden;
+    border: 2px solid white;
+    margin: 10px auto;
+}
+.user .top-user .user-pic img{
+    width: 120px;
+    height: 120px;
+}
+.user .top-user .u-info{
+    width: 100%;
+    overflow: hidden;
+    height: 30px;
+    text-align: center;
+}
+.user .top-user .user-name{
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 2px 0;
+    max-width: 160px;
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    height: 30px;
+    line-height: 30px;
+}
+.user .top-user .user-vip{
+    width: 35px;
+    height: 35px;
+    color: #FF6FA5;
+    background: url("../../img/user/common/vip.png") no-repeat;
+    background-size: 35px 35px;
+    display: inline-block;
+    position: absolute;
+    margin-top: -50px;
+    margin-left: 155px;
+}
+.user .top-user .user-age{
+    padding: 2px 0;
+    font-size: 14px;
+}
+
+.user .top-user .more{
+    padding: 2px 0;
+    font-size: 14px;
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+}
+
+.user .top-user .more li{
+    width: 33.3%;
+    float: left;
+}
+.user .top-user .more li span{
+    width: auto;
+    overflow: hidden;
+    display: inline-block;
+    letter-spacing: 5px;
+}
+.user .top-user .more li a{
+    display: block;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+}
+.user .top-user .more .icon-mail{
+    font-size: 14px;
+}
+
+.user .user-main{
+    width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+    padding-top: 35px;
+    position: relative;
+    overflow: hidden;
+}
+
+.user .user-main .left-nav{
+    width: 240px;
+    height: calc(100% - 40px);
+    padding: 0 40px;
+    background: white;
+    box-shadow: 0 0 5px rgba(255,111,165,0.2);
+    position: absolute;
+    left: 5px;
+    top: 35px;
+}
+
+.user-main .left-nav dt{
+    color: #44B9FD;
+    font-size: 18px;
+    font-weight: 200;
+    text-align: center;
+    padding: 15px 0;
+    border-bottom: 1px dotted #E1E0E5;
+    font-family:  SimHei, serif;
+}
+.user-main .left-nav li{
+    padding-left: 40px;
+    border-bottom: 1px dotted #E1E0E5;
+}
+.user-main .left-nav li:last-child{
+    border-bottom: none;
+}
+.user-main .left-nav li a{
+    text-decoration: none;
+    padding: 15px 0;
+    padding-left: 28px;
+    display: block;
+    color: #575757;
+}
+.user-main .left-nav li a:hover{
+    color: #44B9FD;
+}
+.user-main .left-nav .icon{
+    background-position: 0 12px;
+    background-size: 25px;
+}
+.icon.i-dingdan{
+    background: url("../../img/user/common/i_dingdan.png") no-repeat;
+}
+.icon.i-qianbao{
+    background: url("../../img/user/common/i_qianbao.png") no-repeat;
+}
+.icon.i-service{
+    background: url("../../img/user/common/i_service.png") no-repeat;
+}
+.icon.i-pingjia{
+    background: url("../../img/user/common/i_pingjia.png") no-repeat;
+}
+.icon.i-xinxi{
+    background: url("../../img/user/common/i_xinxi.png") no-repeat;
+}
+.icon.i-address{
+    background: url("../../img/user/common/i_address.png") no-repeat;
+}
+.icon.i-safe{
+    background: url("../../img/user/common/i_safe.png") no-repeat;
+}
+.icon.i-password{
+    background: url("../../img/user/common/i_password.png") no-repeat;
+}
+.icon.i-help{
+    background: url("../../img/user/common/i_help.png") no-repeat;
+}
+.icon.i-msg{
+    background: url("../../img/user/common/i_msg.png") no-repeat;
+}
+
+.user .user-main .main-r{
+    width: 910px;
+    overflow: hidden;
+    float: right;
+    margin-right: 5px;
+    background: white;
+    margin-bottom: 5px;
+    min-height: 612px;
+    box-shadow: 0 0 5px rgba(255,111,165,0.2);
+}
+
+.user .user-tab{
+    width: 100%;
+    border-bottom: 1px solid #DBDADF;
+}
+.user .user-tab a{
+    display: inline-block;
+    font-size: 14px;
+    padding: 5px 25px;
+    text-decoration: none;
+    color: black;
+}
+.user .user-tab a:hover{
+    color: #2F9FE4;
+}
+.user .user-tab a.selected{
+    color: #44B9FD;
+    border-bottom: 1px solid #44B9FD;
+}
+.user .user-tab a.selected.default{
+    cursor: default;
+}

@@ -1,0 +1,14 @@
+runtime/
+.idea/
+.phpintel/
+*.DS_Store
+*.bak
+**/bak/
+public/static/cdn/
+sftp-config.json
+itboye_guannan_admin/
+.vscode/
+vendor/fzaninotto/
+vendor/topthink/
+vendor/composer/
+vendor/itboye/

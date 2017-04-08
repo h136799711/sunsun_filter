@@ -1,0 +1,236 @@
+pre {
+    white-space: pre-wrap; /* css-3 */
+    white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+    white-space: pre-wrap; /* Opera 4-6 */
+    white-space: -o-pre-wrap; /* Opera 7 */
+    word-wrap: break-word; /* Internet Explorer 5.5+ */
+}
+
+.product_detail_box{
+    padding-bottom:60px;
+}
+.product-detail.title{
+    height: 50px;
+    line-height: 25px;
+    overflow: hidden;
+    color:#1a1a1a;
+    font-size: 16px;
+    background: white;
+    padding:0 10px;
+}
+.product-detail.property{
+    overflow: hidden;
+    background: white;
+}
+.product-detail.property span{
+    float: left;
+    margin: 10px;
+    font-size: 14px;
+}
+.product-detail.money{
+    padding:10px;
+    font-size: 16px;
+    background: white;
+}
+.product-detail.money span{
+    color:deepskyblue;
+}
+.product-detail.money del{
+    margin-left:10px;
+    color:#ccc
+}
+.product-detail.selected-area button{
+    margin-top:30px;
+}
+.product-detail.selected-area-cover{
+    position: fixed;
+    z-index: 10;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:100%;
+    display: none;
+    opacity: .5;
+    background: #000 none repeat scroll 0 0;
+}
+.product-detail.selected-area-box{
+    position: fixed;
+    bottom:0;
+    width:100%;
+    display: none;
+    z-index:12;
+}
+.product-detail.selected{
+    overflow: hidden;
+    margin-top:15px;
+}
+.product-detail.selected-left{
+    float: left;
+    margin-left:10px;
+}
+.product-detail.selected-left span{
+    float: right;
+}
+.product-detail.selected-mid{
+    float: left;
+    width:70%;
+}
+.product-detail.selected-mid span{
+    float: left;
+    margin:5px 10px;
+    font-size: 13px;
+}
+.product-detail.selected-right{
+    float: right;
+    width:10%;
+    margin-top: 10px;
+    font-size: 12px;
+}
+.product-detail.selected-area{
+    overflow: hidden;
+    background: white;
+    display: block;
+    padding-top:10px;
+}
+.selected-area-head{
+    margin-left:20px;
+    overflow: hidden;
+}
+.selected-area-body{
+    margin-left:20px;
+    position: relative;
+    overflow: hidden;
+}
+.selected-area-head1{
+    margin-left:20px;
+    float: left;
+}
+.selected-area-head1 span{
+    float: right;
+}
+.selected-area-body1{
+    margin-right:20px;
+    float: right;
+}
+.selected-area-body1 span{
+    float: left;
+}
+/*第一行有图片的一项*/
+.selected-area-pic{
+    width:100px;
+    height: 100px;
+}
+.selected-area-pic img{
+    width:100%;
+    height:100%;
+}
+.selected-item{
+    width:60%;
+    overflow: hidden;
+    float: left;
+    margin-left:10px
+}
+.selected-item-price{
+    height: 25px;
+    line-height: 25px;
+    color:orangered;
+    font-size: 20px;
+}
+.selected-item-quantity{
+    height: 25px;
+    line-height: 25px;
+    font-size: 13px;
+}
+.selected-item-size{
+    height: 50px;
+    line-height: 25px;
+    font-size: 13px;
+}
+.selected-area-close{
+    position: absolute;
+    right:0;
+    top:0;
+    width:40px;
+    height: 40px;
+}
+/*↑*/
+.selected-area-body .disabled{
+    color:#ccc;
+}
+.product-detail.selected-area span{
+    font-size: 13px;
+    border:1px solid white;
+    padding:2px 6px;
+    float: left;
+    margin:2px 0;
+}
+.product-detail.selected-area .select{
+    border:1px solid #ff4e3f;
+}
+.product-detail-minus,.product-detail-plus{
+    float: left;
+    text-align: center;
+    width:40px;
+    height:40px;
+    font-size: 24px;
+}
+.product-detail-num{
+    float: left;
+    width:60px;
+    height:40px;
+    text-align: center;
+}
+.product-detail-price{
+    color:deepskyblue;
+    margin-right:12px;
+}
+
+.product-detail.content{
+    padding:0 10px;
+    margin:10px 0;
+    background: white;
+    font-size: 14px;
+}
+.product-detail.delivery{
+    margin:20px 0;
+    padding:0 10px;
+    color:deepskyblue;
+}
+.product-detail.advantage{
+    font-size: 14px;
+}
+.product-detail.advantage li::before{
+    content: '●';
+    color:lawngreen;
+    margin:0 20px
+}
+.product-detail.btn{
+    background: white;
+    margin-top: 10px;
+    border-top: 1px solid #ddd;
+    overflow: hidden;
+    height: 55px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+.product-detail.btn-left{
+    width:70px;
+    float: left;
+    margin-top: 10px;
+    text-align: center;
+    font-size: 14px;
+}
+.product-detail.btn-left i{
+    font-size: 16px;
+}
+.product-detail.btn button{
+    float: right;
+    background: deepskyblue;
+    color:white;
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    width:120px;
+    border:none;
+}

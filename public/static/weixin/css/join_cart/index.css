@@ -1,0 +1,77 @@
+.join-cart{
+    padding-bottom: 70px;
+}
+.join-cart-img{
+    width:100vw;
+    height:80vw;
+}
+.join-cart-img img{
+    width:100%;
+    height:100%;
+}
+.join-cart-size{
+    background: white;
+    border-bottom: 1px solid #e8e8e8;
+    overflow: hidden;
+}
+.join-cart-size span{
+    float:left;
+    width:30%;
+    padding:20px;
+}
+.join-cart-size-group{
+    float: left;
+    width:70%;
+}
+.join-cart-size button{
+    border:1px solid #ccc;
+    padding:2px 6px;
+    margin:20px 10px 0 0;
+    border-radius:4px;
+    background: white;
+    float: left;
+}
+.join-cart-size button:focus{
+    outline: none;
+}
+.join-cart-num{
+    background: white;
+    border-bottom: 1px solid #e8e8e8;
+    overflow: hidden;
+    height: 70px;
+    padding:20px;
+}
+.join-cart-num-text{
+    float: left;
+}
+.join-cart-num-control{
+    float:right;
+    width:160px;
+    border:1px solid #ddd;
+    border-radius:4px;
+}
+.join-cart-num-control span{
+    float: left;
+    width:39px;
+    text-align:center
+}
+.join-cart-num-control input{
+    float: left;
+    width:80px;
+    border-top:none;
+    border-left: 1px solid #ddd;
+    border-right:1px solid #ddd;
+    text-align:center;
+}
+.join-cart-btn{
+    width:100%;
+    height: 60px;
+    text-align: center;
+    color:white;
+    line-height: 60px;
+    font-size: 18px;
+    background: #0aa3ef;
+    position: fixed;
+    bottom:0;
+    border:none;
+}

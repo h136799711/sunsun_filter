@@ -1,0 +1,98 @@
+.submit-order{
+    padding-bottom: 60px;
+}
+.submit-order-img{
+    width:100%
+}
+.submit-order-img img{
+    width:100%
+}
+.submit-order-address{
+    overflow: hidden;
+    background:white;
+    height: 80px;
+    line-height: 40px;
+    border-bottom: 1px solid #eaeaea;
+}
+.submit-order-address-left{
+    float: left;
+    padding-left:20px;
+    width:90%;
+}
+.submit-order-address-right{
+    float: left;
+    padding-right: 20px;
+    width:10%;
+    line-height: 80px;
+    font-size: 13px;
+}
+.submit-order-product{
+    overflow: hidden;
+    height:60px;
+    line-height: 30px;
+    margin: 20px 0;
+    background: white;
+    border-bottom: 1px solid #eaeaea;
+}
+.submit-order-product-left{
+    float: left;
+    width:70%;
+    overflow: hidden;
+    padding-left: 20px;
+}
+.submit-order-address-name{}
+.submit-order-product-right{
+    float: left;
+    width:30%;
+    padding-right: 20px;
+}
+.submit-order-product-right div{
+    float: right;
+}
+.submit-order-product-money{
+    color:deepskyblue;
+}
+.submit-order-product-num{
+    color:#ccc;
+    font-size: 14px;
+}
+.submit-order-item{
+    overflow: hidden;
+    height:40px;
+    line-height: 40px;
+    border-bottom: 1px solid #eaeaea;
+    padding:0 20px;
+    background: #fff;
+}
+.submit-order-item-left{
+    float: left;
+}
+.submit-order-item-right{
+    float: right;
+    color:deepskyblue;
+}
+.submit-order-btn{
+    position: fixed;
+    bottom:0;
+    overflow: hidden;
+    background: white;
+    height:50px;
+    width:100%;
+}
+.submit-order-btn-left{
+    float:left;
+    padding-left:20px;
+    line-height:50px;
+}
+.submit-order-btn-left span{
+    color:deepskyblue;
+}
+.submit-order-btn-right{
+    float: right;
+    line-height: 50px;
+    background: deepskyblue;
+    color:white;
+    text-align: center;
+    padding:0 20px;
+    border:none;
+}

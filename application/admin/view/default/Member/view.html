@@ -1,0 +1,218 @@
+{extend name="default/template/base_index" /}
+
+
+{block name="area_header"}
+
+	<script type="text/javascript" src="__CDN__/jquery-validation/1.13.1/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="__CDN__/jquery-validation/1.13.1/localization/messages_zh.min.js"></script>
+
+	<style type="text/css">
+		input.error {
+			border: 1px solid red;
+		}
+		
+		label.checked {
+			
+			padding-left: 25px;
+		}
+		
+		label.error {
+			padding-left: 25px;
+			padding-bottom: 2px;
+			font-weight: bold;
+			color: #EA5200;
+		}
+	</style>
+
+{/block}
+
+{block name="area_body"}
+	{include file="default/Widget/topbar" /}
+	<div class="admin-main container-fluid">
+		{include file="default/Widget/left" /}
+		<div class="admin-main-content">
+			{include file="default/Widget/breadcrumb" /}
+			<div class="margin-sm clearfix">
+				<a class="btn btn-default btn-sm" href="{$_g_ret_url}" target="_self"><i class="fa fa-reply"></i>返回</a>
+
+				<div class="margin-sm col-md-12 col-lg-12">
+					<label class="col-md-2 col-lg-2 control-label">常用操作</label>
+					<div class="col-md-10 col-lg-10">
+						<a class="btn btn-xs btn-primary ajax-get confirm" href="{:url("Account/resetPwd")}?id={$userinfo['id']}">重置密码</a>
+						<a href="{:url('LoginSession/index',array('uid'=>$userinfo['id']))}" target="_blank"  class="btn btn-xs btn-primary" >设备管理</a>
+						<a href="{:byUrl('Member/user_role',array('id'=>$userinfo['id']))}" target="_self" class="btn btn-xs btn-default" >角色管理</a>
+						<a href="{:url('Member/addMoney',array('id'=>$userinfo['id']))}" target="_blank" class="btn btn-xs btn-default" >余额充值</a>
+					</div>
+				</div>
+			</div>
+			<ul class="nav nav-tabs">
+				<li class="active" ><a href="#base" data-toggle="tab">1. 基本信息</a></li>
+				<li><a href="#role" data-toggle="tab">2. 用户角色</a></li>
+				<li><a href="#login_session" data-toggle="tab">3. 登录信息</a></li>
+				<!--<li><a href="#order" data-toggle="tab">4. 订单信息</a></li>-->
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane fade in active" id="base">
+					<!-- 带验证 form -->
+					<form id="registerForm" class="form-horizontal well validateForm">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">用户头像</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">
+											<img class="m-avatar" src="{:app\\src\\base\\helper\\ConfigHelper::getAvatarUrl($userinfo['id'],60)}" />
+
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">用户登录账号</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$userinfo.username}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">用户手机号</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$userinfo.mobile}</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">用户昵称</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$userinfo.nickname}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">性别</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">	{$userinfo.sex == 0 ? "女":"男"}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">注册时间</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">	{$userinfo['reg_time']|date='Y-m-d H:i:s',###}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">最后登录时间</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">	{$userinfo['last_login_time']|date='Y-m-d H:i:s',###}</div>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+					<!-- form -->
+				</div>
+				<div class="tab-pane fade" id="login_session">
+					{empty name="login_device_list"}
+						用户从未登录过该账号
+						{else/}
+
+					<table class="table table-striped table table-hover  table-condensed">
+						<thead>
+						<tr>
+							<th>
+								<!--<input type="checkbox" class="selectall" onclick="myUtils.selectall(this,'.selectitem');" />{:L('SELECT_ALL')}-->
+							<th>
+								登录信息
+							</th>
+							<th>
+								会话最近活跃时间
+							</th>
+							<th>
+								会话过期时间
+							</th>
+							<th>
+								设备类型
+							</th>
+							<th>
+								{:L('OPERATOR')}
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+						{empty name="login_device_list"}
+						<tr>
+							<td colspan="4" class="text-center">{:L('NO_DATA')}</td>
+						</tr>
+						{/empty}
+						{volist name="login_device_list" id="vo"}
+						<tr>
+							<td>
+								<!--<input type="checkbox" value="{$vo.id}" name="ids[]" class="selectitem" />{$vo.id}</td>-->
+
+							<td style="width: 360px;">{$vo.login_info}</td>
+							<td>{$vo['update_time']}</td>
+							<td>
+								{:toDatetime($vo['expire_time'])}
+							</td>
+							<td>{$vo.login_device_type}</td>
+							<td>
+								<a href="{:url('LoginSession/remove',array('s_id'=>$vo['log_session_id'],'uid'=>$vo['uid']))}" class="btn btn-danger btn-sm ajax-get confirm"><i class="fa fa-trash-o"></i>移除</a>
+							</td>
+						</tr>
+
+						{/volist}
+						</tbody>
+					</table>
+
+					{/empty}
+				</div>
+				<div class="tab-pane fade" id="role">
+					<form class="form-horizontal well validateForm">
+						<fieldset>
+
+							<div class="form-group">
+						<label class="col-md-2 col-lg-2 control-label">用户拥有的角色</label>
+						<div class="col-md-10 col-lg-10">
+							<table class="table table-bordered" >
+								<thead>
+								<tr>
+									<th>角色名</th>
+									<th>角色权限描述</th>
+									<th>操作</th>
+								</tr>
+								</thead>
+								<tbody>
+								{volist name="userroles" id="vo"}
+								<tr>
+									<td>{$vo['title']}</td>
+									<td>{$vo['notes']}</td>
+									<td>
+										<a class="ajax-get btn btn-xs btn-danger" href="{:url('AuthGroupAccess/delFromGroup')}?uid={$userinfo.id}&groupid={$vo.id}"><i class="fa  fa-trash-o"></i>移除</a>
+									</td>
+								</tr>
+								{/volist}
+								</tbody>
+							</table>
+						</div>
+					</div>
+						</fieldset>
+					</form>
+				</div>
+				<div class="tab-pane fade" id="order">
+					TODO: 用户订单信息
+				</div>
+			</div>
+
+			
+		</div>
+		<!-- END admin-main-content -->
+	</div>
+	<!-- END admin-main-->
+{/block}
+
+{block name="area_footer"}
+
+	<script type="text/javascript">
+		$(function() {
+
+		}); //end ready
+	</script>
+
+{/block}

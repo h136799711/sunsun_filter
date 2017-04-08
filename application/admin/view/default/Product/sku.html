@@ -1,0 +1,745 @@
+{extend name="default/template/base_index"/}
+
+{block name="area_header"}
+    <link rel="stylesheet" type="text/css" media="all" href="__CSS__/wxshop.css">
+    <link type="text/css" rel="stylesheet" src="__CDN__/jquery-uploadify/3.2.1/uploadify.css"/>
+    <script type="text/javascript" src="__CDN__/jquery-uploadify/3.2.1/jquery.uploadify.min.js"></script>
+    <style type="text/css">
+        .unify table tr {
+            height: 25px;
+            line-height: 25px;
+        }
+        .unify table tr th, .unify table tr td {
+            text-align: center;
+        }
+        input{
+            max-width: 120px;
+        }
+    </style>
+{/block}
+
+{block name="area_body"}
+    {include file="default/Widget/topbar" /}
+    <div class="admin-main container-fluid">
+        {include file="default/Widget/left" /}
+        <div class="admin-main-content" style="background: #FFFfff;">
+            {include file="default/Widget/breadcrumb" /}
+            <form class="form" action="{:url('Product/sku',array('id'=>$id))}">
+                <fieldset>
+                    <legend>规格添加</legend>
+                </fieldset>
+                <label class="control-label">商品规格<span class="help-block">(不要超过4种规格,只有选中的前4种有效)</span></label>
+                <div class="well">
+                    <div class="form-group">
+                        <a target="_self"
+                           href="{:url('CategorySku/add',array('cate_id'=>$cate_id,'parent'=>$parent,'preparent'=>$preparent))}"
+                           class="btn btn-sm btn-primary"><i class="fa fa-plus"></i>新增规格</a>
+                        <a href="__SELF__" class="btn btn-sm btn-default"><i class="fa fa-refresh"></i>刷新</a>
+                    </div>
+                    <div class="form-group js_sku_change">
+                        <label class="am-radio-inline">
+                            <input type="radio" value="0"
+                            {eq name="has_sku" value="0"}checked="checked"{/eq}
+                            name="has_sku" />
+                            统一规格
+                        </label>
+                        <label class="am-radio-inline">
+                            <input type="radio" value="1"
+                            {eq name="has_sku" value="1"} checked="checked" {/eq}
+                            name="has_sku" />
+                            多规格
+                        </label>
+                        <div class="help-block">尽量都设置为统一规格</div>
+                    </div>
+                </div>
+                <div class="unify"
+                {eq name='has_sku' value='1'}style="display:none"{/eq}
+                >
+                <table>
+                    <tr>
+                        <th width="180px">原价</th>
+                        <th width="180px">销售价</th>
+                        <th width="180px">库存</th>
+                        <th width="180px">商品条码（选填)</th>
+                        <th width="180px" class="hidden">最小起订量</th>
+                        <th width="180px" class="hidden">二级量报价</th>
+                        <th width="180px" class="hidden">二级报价最少批发量</th>
+
+
+                    </tr>
+                    <tr>
+                        <td><input type="text" name="ori_price" value="{present name="unify_ori_price"}{$unify_ori_price/100}{/present}"/><br/></td>
+                        <td><input type="text" name="price" value="{present name="unify_price"}{$unify_price/100}{/present}"/><br/></td>
+                        <td><input type="text" name="quantity" value="{present name="unify_quantity"}{$unify_quantity}{/present}"/></td>
+                        <td><input type="text" name="product_code" value="{present name="unify_product_code"}{$unify_product_code}{/present}"/></td>
+                        <td class="hidden"><input type="text" name="cnt1" value="{present name="unify_cnt1"}{$unify_cnt1}{/present}"/></td>
+                        <td class="hidden"><input type="text" name="price2" value="{present name="unify_price2"}{$unify_price2/100}{/present}"/></td>
+                        <td class="hidden"><input type="text" name="cnt2" value="{present name="unify_cnt2"}{$unify_cnt2}{/present}"/></td>
+
+                    </tr>
+                    <tr class="hidden">
+                        <th width="180px" class="hidden">三级量报价</th>
+                        <th width="180px" class="hidden">三级报价最少批发量</th>
+
+                    </tr>
+                    <tr class="hidden">
+                        <td class="hidden"><input type="text" name="price3" value="{present name="unify_price"}{$unify_price3/100}{/present}"/></td>
+                        <td class="hidden"><input type="text" name="cnt3" value="{present name="unify_price"}{$unify_cnt3}{/present}"/></td>
+
+                    </tr>
+                </table>
+                <!--<div style="position:relative;top:50px;">-->
+                    <!--<a class="btn btn-primary btn-sm js_sku_submit" href="javascript:void(0)"><i class="fa fa-save"></i>保存</a>-->
+                    <!--<a href="javascript:window.history.back(-1)" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>返回</a>-->
+                <!--</div>-->
+        </div>
+
+        <div class="sku-panel-wrp"
+        {eq name="has_sku" value="0"}style="display:none;"{/eq}
+        <div class="sku-info">
+            {volist name="skulist" id="sku"}
+                <div class='sku_wrp' data-skuname="{$sku.name}" data-id="{$sku.id}">
+                    <p>{$sku.name}
+                        <a href="javascript:void(0);" class="btn btn-link js_sku_edit">编辑</a>
+                    </p>
+                    <div class='skuvalue_wrp'>
+                        {volist name="sku['value_list']" id="skuvalue"}
+                            <label class="checkbox-inline">
+
+                                <input type="checkbox" {present name="skuinfo"}{:strpos($skuinfo,$skuvalue['id'].',') === false ?'':'checked'}{/present}
+                                class="js_sku_value {present name="skuinfo"}{:strpos($skuinfo,$skuvalue['id'].',') === false ?'':'checked'}{/present} "
+                                data-valuename="{$skuvalue['name']}" value="{$skuvalue['id']}">
+                                {$skuvalue.name}
+                            </label>
+                        {/volist}
+                    </div>
+
+                    <div class='skuvalue_edit_wrp well clearfix hidden'>
+                        <div class='col-lg-12 col-md-12 clearfix skuvalue-edit'><label>规格值</label><input type='text'
+                                                                                                         class="input-sm"/>
+                            <a href="javascript:void(0)" data-skuid="{$sku.id}"
+                               class="btn btn-primary js_sku_add btn-sm">添加</a>
+                        </div>
+                        <div class='skuvalue-preview'>
+
+                            {volist name="sku['value_list']" id="skuvalue2"}
+                                <label class="bg-muted">
+                                    {$skuvalue2.name}
+                                    {:strpos(isset($skuvalue2['vid'])?$skuvalue2['vid']:"","$") === 0?"<i class='fa fa-times js_delete'></i>":""}
+
+                                </label>
+                            {/volist}
+                        </div>
+                        <div class='col-lg-12 col-md-12 clearfix skuvalue-edit'>
+                            <a href="javascript:void(0)" class="btn btn-primary js_sku_sure btn-sm">确定</a>
+                            <a href="javascript:void(0)" class="btn btn-default js_sku_cancel btn-sm hide">取消</a>
+                        </div>
+
+                    </div>
+
+                </div>
+            {/volist}
+        </div>
+
+        <div class="form-group sku-panel-wrp " STYLE="display: none;">
+            <label class="control-label">价格&库存</label>
+            <div class="sku-table">
+                <span class="help-block">请选择规格</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label class="control-label">&nbsp;</label>
+            <div class="">
+                <a class="btn btn-primary btn-sm js_sku_submit" href="javascript:void(0)"><i class="fa fa-save"></i>保存</a>
+                <a href="javascript:window.history.go(-1)" class="btn btn-default btn-sm"><i class="fa fa-reply"></i>返回</a>
+            </div>
+        </div>
+    </div>
+    </form>
+    </div>
+    {include file="default/template/wxpicture"/}
+    </div>
+    <!-- END admin-main-content -->
+    </div>
+    <!-- END admin-main-->
+{/block}
+{block name="area_footer"}
+    <script type="text/javascript">
+        window.skumanage = {
+            'deleted': [],
+            'added': [],
+        };
+        function manageSkuClick(ev) {
+            $ele = $(ev.target);
+            console.log("");
+            if ($ele.hasClass("js_sku_cancel")) {
+                $ele.parents(".skuvalue_edit_wrp").addClass("hidden");
+                $ele.parents(".skuvalue_wrp").removeClass("hidden");
+            }
+
+            if ($ele.hasClass("js_sku_edit")) {
+                $ele.parent().siblings(".skuvalue_wrp").addClass("hidden");
+                $ele.parent().siblings(".skuvalue_edit_wrp").removeClass("hidden");
+            }
+            if ($ele.hasClass("js_sku_sure")) {
+                var cont = $ele.parents(".skuvalue_edit_wrp").prev();
+                var label = cont.find("label");
+                for (var del in window.skumanage.deleted) {
+//					console.log(label.length);
+                    for (var i = 0; i < label.length; i++) {
+                        if ($(label[i]).text().trim() == window.skumanage.deleted[del].trim()) {
+                            $(label[i]).remove();
+                            break;
+                        }
+                    }
+                }
+                for (var add in window.skumanage.added) {
+                    var check = '<label class="checkbox-inline"><input type="checkbox" class="js_sku_value" value="$' + window.skumanage.added[add] + '" >' + window.skumanage.added[add] + '</label>';
+                    cont.append(check);
+                }
+                window.skumanage.deleted = [];
+                window.skumanage.added = [];
+                $par = $ele.parents(".skuvalue_edit_wrp").addClass("hidden");
+                $par.prev().removeClass("hidden");
+
+                createSKUTable();
+                wxuploadimg.init({cont: ".wxuploaderimg"});
+//				setSkuData(JSON.parse(window.skuvalue));
+                return;
+            }
+
+            if ($ele.hasClass("js_delete")) {
+                $ele.parent().remove();
+
+                var skuvalue = $ele.parent().text();
+//				console.log(skuvalue);
+                ev.preventDefault();
+                ev.stopPropagation();
+
+                for (var i = 0; i < skumanage.added.length; i++) {
+                    if (skumanage.added[i] == skuvalue) {
+                        skumanage.added = skumanage.added.slice(i, i + 1);
+                        return;
+                    }
+                }
+                skumanage.deleted.push(skuvalue);
+                return;
+            }
+
+            if ($ele.hasClass("js_sku_add")) {
+                var $cont = $(".skuvalue_edit_wrp");
+                var skuvalue = $ele.prev().val().trim();
+
+                if (skuvalue) {
+                    var len = skuvalue.replace(/[^\x00-\xff]/g, 'xx').length;
+
+                    if (len > 30) {
+                        $.scojs_message("不能超过15字!", $.scojs_message.TYPE_ERROR);
+                        return;
+                    }
+                    for (var i = 0; i < skumanage.added.length; i++) {
+                        if (skumanage.added[i] == skuvalue) {
+                            $.scojs_message("已经存在相同规格值!", $.scojs_message.TYPE_ERROR);
+                            return;
+                        }
+                    }
+                    var cate_id = "{$cate_id}";
+                    var sku_id = $ele.attr("data-skuid");
+                    var query = {dnredirect: true, cate_id: cate_id, sku_id: sku_id, name: skuvalue};
+
+                    window.myUtils.ajaxpost($ele, "{:url('CategorySkuvalue/add')}", query);
+
+
+                } else {
+                    $.scojs_message("不能添加空值!", $.scojs_message.TYPE_ERROR);
+                    return;
+                }
+
+            }
+
+        }
+        function createSKUTable() {
+            var cont = $(".sku-table");
+            cont.empty();
+            var table = $("<table class='table table-border'></table>");
+            var header = $("<tr></tr>");
+            var tbody = $("<tbody></tbody>");
+            table.append(tbody);
+            tbody.append(header);
+            cont.append(table);
+
+            var sku_arr = [], row = 1;
+
+            $(".sku_wrp").each(function (index, item) {
+                var sku_items = $(".js_sku_value.checked", item);
+                if (sku_arr.length >= 4) {
+                    //最多4种TODO:加入控制／比如禁用选择
+                    console.log(sku_items);
+                    return;
+                }
+                if (sku_items.length > 0) {
+                    sku_arr.push({'sku': item, 'skuitems': sku_items, 'count': sku_items.length});
+                    row = row * sku_items.length;
+                }
+            })
+
+            //SKU种类 最多4种
+            var col = sku_arr.length;
+            for (var j = 0; j < col; j++) {
+                header.append("<th>" + $(sku_arr[j]['sku']).attr("data-skuname") + "</th>");
+            }
+            header.append("<th>销售价</th><th  class=''>原价<span class='text-muted'>(必须大于销售价)</span></th><th class='hidden'>最小起订量</th><th class='hidden'>二级量报价</th><th class='hidden'>二级报价最少批发量</th><th class='hidden'>三级量报价</th><th class='hidden'>三级报价最少批发量</th><th>库存</th><th>商品条码<span class='text-muted'>(选填)</span></th><th class='hide'>VIP1价格</th><th class='hide'>VIP2价格</th><th class='hide'>税率</th>");
+
+            //创建好所有的行
+            for (var i = 0; i < row; i++) {
+                var tbody_tr = $("<tr></tr>");
+                tbody.append(tbody_tr);
+            }
+            //是否为颜色
+            var flag = 0;
+            //创建行内部的列
+            for (var i = 0; i < col; i++) {
+                flag = 0;
+                var skuitems = sku_arr[i]['skuitems'];
+                if ($(sku_arr[i]['sku']).attr("data-skuname") == "颜色") {
+                    flag = 1;
+                }
+
+                var repeater = 1;
+                var rowspan = 1;
+                for (var r = 0; r < col; r++) {
+                    if (r > i) {
+                        rowspan = rowspan * sku_arr[r]['skuitems'].length;
+                    } else if (r < i) {
+                        repeater = repeater * sku_arr[r]['skuitems'].length;
+                    }
+                }
+                //遍历行
+                //遍历选中的SKU值
+                for (var k2 = 0; k2 < skuitems.length; k2++) {
+
+                    var sku = $(sku_arr[i]['sku']).attr("data-id") + ":" + $(skuitems[k2]).val() + ";";
+
+                    var sku_name = $(sku_arr[i]['sku']).attr("data-skuname") + ":" + $(skuitems[k2]).attr("data-valuename") + ";";
+//					console.log(sku_name);
+                    //
+
+                    console.log("======================");
+
+                    for (var k = 0; k < repeater; k++) {
+                        var index = k * skuitems.length * rowspan + k2 * rowspan + 1;
+
+                        console.log("repeater " + repeater, "rowspan " + rowspan);
+                        console.log(index, sku);
+                        var tr = $("tr", tbody).get(index);
+                        var td = '';
+                        if (flag == 1) {
+                            td = $("<td ></td>").html($(skuitems[k2]).attr("data-valuename") + "<div class='wxuploaderimg clearfix'  data-maxitems='1'><div class='img-preview clearfix' >	</div><div class='add'><i class='fa fa-plus'></i></div></div>");
+                        } else {
+                            td = $("<td ></td>").text($(skuitems[k2]).attr("data-valuename"));
+                        }
+                        $(tr).append(td);
+                        td.attr("rowspan", rowspan);
+
+                        for (var k3 = 0; k3 < rowspan && k < repeater; k3++) {
+//							console.log(index+k3,"k3");
+                            if (index + k3 < row + 1) {
+                                tr = $("tr", tbody).get(index + k3);
+                                if ($(tr).attr("data-id")) {
+                                    $(tr).attr("data-id", $(tr).attr("data-id") + sku);
+                                    $(tr).attr("data-desc", $(tr).attr("data-desc") + sku_name);
+                                } else {
+                                    $(tr).attr("data-id", sku);
+                                    $(tr).attr("data-desc", sku_name);
+                                }
+                            } else {
+                                break;
+                            }
+                        }
+                    }
+
+
+                }
+            }
+            //添加输入框
+            var td = "<td><input type='text' class='price' /></td> " +
+                "<td><input type='text' class='ori_price' /></td>" +
+                "<td><input type='text' class='quantity' /></td>" +
+                "<td><input type='text' class='product_code' /></td>" +
+                "<td><input type='text' class='cnt1 hide' /></td>" +
+                "<td><input type='text' class='price2 hide' /></td>" +
+                "<td><input type='text' class='cnt2 hide' /></td>" +
+                "<td><input type='text' class='price3 hide' /></td>" +
+                "<td><input type='text' class='cnt3 hide' /></td>" +
+                "<td><input type='text' class='vip1-price hide' /></td>" +
+                "<td><input type='text' class='vip2-price hide' /></td>" +
+                "<td><input type='text' class='taxation hide' /></td>";
+            for (var j = 1; j <= row && col > 0; j++) {
+                $($("tr", tbody).get(j)).append(td);
+            }
+            //创建结束
+
+            //设置价格
+            $(".sku-table input").bind("blur", inputBlur);
+        }
+        function getSkuData() {
+            var skulist = [];
+            var icon_url = "";
+            var err = false;
+            $(".sku-table tr").each(function (index, item) {
+                if ($(item).attr("data-id")) {
+                    var ori_price = parseFloat($(item).find(".ori_price").val());
+                    var tmp_icon_url = $(item).find(".wxuploaderimg img").attr("data-imageid");
+                    var quantity = parseInt($(item).find(".quantity").val());
+                    var price = parseFloat($(item).find(".price").val());
+                    var cnt1 = parseInt($(item).find(".cnt1").val());
+                    var price2 = parseFloat($(item).find(".price2").val());
+                    var cnt2 = parseInt($(item).find(".cnt2").val());
+                    var price3 = parseFloat($(item).find(".price3").val());
+                    var cnt3 = parseInt($(item).find(".cnt3").val());
+                    var product_code = $(item).find(".product_code").val();
+                    var vip1_price = $(item).find(".vip1-price").val();
+                    var vip2_price = $(item).find(".vip2-price").val();
+                    var taxation = $(item).find(".taxation").val();
+
+                    if (tmp_icon_url) {
+                        icon_url = tmp_icon_url;
+                    }
+                    if ((!product_code)) {
+                        product_code = "";
+                    }
+/*                    if (isNaN(ori_price)) {
+                        err = true;
+                        alert('原价必须为数字');
+                        $(item).find(".ori_price").focus().select();
+                        return false;
+                        //ori_price = 0;
+
+                    }*/
+                    if (isNaN(price)) {
+                        err = true;
+                        alert('销售价必须为数字');
+                        $(item).find(".price").focus().select();
+                        return false;
+                        //price = 0;
+                    }
+                    if (isNaN(quantity)) {
+                        err = true;
+                        alert('库存必须为数字');
+                        $(item).find(".quantity").focus().select();
+                        return false;
+                        //quantity = 0;
+                    }
+                    if (isNaN(vip1_price)) {
+                        err = true;
+                        alert('vip1价格');
+                        $(item).find(".vip1-price").focus().select();
+                        return false;
+                        //vip1_price = 0;
+                    }
+                    if (isNaN(vip2_price)) {
+                        err = true;
+                        alert('vip2价格必须为数字');
+                        $(item).find(".vip2-price").focus().select();
+                        return false;
+                        //vip2_price = 0;
+                    }
+                    if (isNaN(taxation)) {
+                        err = true;
+                        alert('税率必须为数字');
+                        $(item).find(".taxation").focus().select();
+                    }
+                    var sku = {
+                        'sku_id': $(item).attr("data-id"),
+                        'price': price,
+                        'icon_url': icon_url,
+                        'quantity': quantity,
+                        'product_code': product_code,
+                        'ori_price': ori_price,
+                        'cnt1': cnt1,
+                        'price2': price2,
+                        'cnt2': cnt2,
+                        'price3': price3,
+                        'cnt3': cnt3,
+                        'vip1_price': vip1_price,
+                        'vip2_price': vip2_price,
+                        'taxation': taxation,
+                        'sku_desc': $(item).attr("data-desc")
+                    }
+
+                    skulist.push(sku);
+                }
+            })
+
+            if (err)return false;
+            console.log(skulist);
+            return JSON.stringify(skulist);
+        }
+
+        function getSkuInfo() {
+            var sku_info = [];
+            $(".sku_wrp").each(function (index, item) {
+                var sku_items = $(".js_sku_value.checked", item);
+                if (sku_info.length >= 4) {
+                    //最多4种TODO:加入控制／比如禁用选择
+                    return;
+                }
+                if (sku_items.length > 0) {
+                    var sku = {'id': $(item).attr("data-id"), vid: []};
+                    for (var i = 0; i < sku_items.length; i++) {
+                        sku.vid.push($(sku_items[i]).val());
+                    }
+                    sku_info.push(sku);
+                }
+            })
+            console.log(sku_info);
+            return JSON.stringify(sku_info);
+        }
+        //设置sku信息
+        function setSkuData(skuvalue) {
+			console.log(skuvalue);
+            $(".sku-table tr").each(function (index, item) {
+                var dataid = $(item).attr("data-id");
+                if (dataid) {
+                    var sku = null;
+                    for (var i = 0; i < skuvalue.length; i++) {
+
+//						console.log(dataid , skuvalue[i].sku_id);
+                        if (dataid == skuvalue[i].sku_id) {
+                            sku = skuvalue[i];
+                            break;
+                        }
+                    }
+
+                    if (sku === null) {
+                        return;
+                    }
+
+                    //console.log(sku);
+
+                    if (sku.icon_url) {
+                        var $ele = $('<div class="pull-left clearfix img-item"><div class="edit_pic_wrp"><a href="javascript:;" class="fa fa-lg fa-trash js_delete"></a></div></div>');
+                        $(".img-preview", item).append($ele).css("display", "inline-block");//.show();
+
+                        var $imgStr = "{:config('PICTURE_REMOTE_URL')}" + sku.icon_url + "&size=120";
+                        //alert(sku.icon_url);
+                        $ele.prepend($("<img src='" + $imgStr + "' data-imageid='" + sku.icon_url + "' />"));
+                        $(".wxuploaderimg", item).addClass("checked");
+
+                    }
+
+                    $(item).find(".ori_price").val(sku.ori_price/100.0);
+                    $(item).find(".quantity").val(sku.quantity);
+                    $(item).find(".price").val(sku.price/100.0);
+                    $(item).find(".cnt1").val(sku.cnt1);
+                    $(item).find(".price2").val(sku.price2/100);
+                    $(item).find(".cnt2").val(sku.cnt2);
+                    $(item).find(".price3").val(sku.price3/100);
+                    $(item).find(".cnt3").val(sku.cnt3);
+                    $(item).find(".product_code").val(sku.product_code);
+                    $(item).find(".vip1-price").val(sku.vip1_price);
+                    $(item).find(".vip2-price").val(sku.vip2_price);
+                    $(item).find(".taxation").val(sku.taxation);
+
+                }
+            });
+
+
+            wxuploadimg.init({cont: ".wxuploaderimg", reinit: true});
+
+        }
+
+        function inputBlur(ev) {
+//			console.log(ev);
+            var input = $(ev.target);
+//			console.log(input);
+//			setTimeout(function(ev){
+            var $flag = true, $price = 0,$cnt1 = 0,$price2 = 0,$cnt2 = 0,$price3 = 0,$cnt3 = 0, $quantity = 0;
+            if (input.hasClass("price")) {
+                $price = input.val();
+                //销售价
+                $(".sku-table input.price").each(function (index, item) {
+                    if (ev.target != item && $(item).val()) {
+                        $flag = false;
+                    }
+                });
+
+                if ($flag) {
+                    $(".sku-table input.price").val($price);
+                }
+            } else if (input.hasClass("ori_price")) {
+                //原价
+                $price = input.val();
+                $(".sku-table input.ori_price").each(function (index, item) {
+                    if (ev.target != item && $(item).val()) {
+                        $flag = false;
+                    }
+                });
+
+                if ($flag) {
+                    $(".sku-table input.ori_price").val($price);
+                }
+            } else if (input.hasClass("quantity")) {
+                //库存
+                $quantity = input.val();
+                $(".sku-table input.quantity").each(function (index, item) {
+                    if (ev.target != item && $(item).val()) {
+                        $flag = false;
+                    }
+                });
+
+                if ($flag) {
+                    $(".sku-table input.quantity").val($quantity);
+                }
+            }  else if (input.hasClass("cnt1")) {
+                //库存
+                $cnt1 = input.val();
+                $(".sku-table input.cnt1").each(function (index, item) {
+                    if (ev.target != item && $(item).val()) {
+                        $flag = false;
+                    }
+                });
+
+                if ($flag) {
+                    $(".sku-table input.cnt1").val($cnt1);
+                }
+            }  else if (input.hasClass("price2")) {
+                //库存
+                $price2 = input.val();
+                $(".sku-table input.price2").each(function (index, item) {
+                    if (ev.target != item && $(item).val()) {
+                        $flag = false;
+                    }
+                });
+
+                if ($flag) {
+                    $(".sku-table input.price2").val($price2);
+                }
+            }  else if (input.hasClass("cnt2")) {
+                //库存
+                $cnt2 = input.val();
+                $(".sku-table input.cnt2").each(function (index, item) {
+                    if (ev.target != item && $(item).val()) {
+                        $flag = false;
+                    }
+                });
+
+                if ($flag) {
+                    $(".sku-table input.cnt2").val($cnt2);
+                }
+            }  else if (input.hasClass("price3")) {
+                //库存
+                $price3 = input.val();
+                $(".sku-table input.price3").each(function (index, item) {
+                    if (ev.target != item && $(item).val()) {
+                        $flag = false;
+                    }
+                });
+
+                if ($flag) {
+                    $(".sku-table input.price3").val($price3);
+                }
+            }  else if (input.hasClass("cnt3")) {
+                //库存
+                $cnt3 = input.val();
+                $(".sku-table input.cnt3").each(function (index, item) {
+                    if (ev.target != item && $(item).val()) {
+                        $flag = false;
+                    }
+                });
+
+                if ($flag) {
+                    $(".sku-table input.cnt3").val($cnt3);
+                }
+            }
+        }
+
+        $(function () {
+            var skuinfo = "{present name='skuinfo'}{$skuinfo}{/present}";
+            window.skuvalue = [{present name='skuinfo'}{$skuvaluelist}{/present}][0];
+            if (skuinfo.length > 0) {
+                createSKUTable();
+                wxuploadimg.init({cont: ".wxuploaderimg"});
+                setSkuData(window.skuvalue);
+            }
+            $(".js_sku_submit").click(function () {
+                var url = "{:url('Product/sku')}";
+                var id = "{$id}";
+                var ori_price = $("input[name='ori_price']").val();
+                var price = $("input[name='price']").val();
+                var cnt1 = $("input[name='cnt1']").val();
+                var price2 = $("input[name='price2']").val();
+                var cnt2 = $("input[name='cnt2']").val();
+                var price3 = $("input[name='price3']").val();
+                var cnt3 = $("input[name='cnt3']").val();
+                var quantity = $("input[name='quantity']").val();
+                var product_code = $("input[name='product_code']").val();
+                var sku_list = getSkuData();
+                var vip_price = [];
+                $("input[name='vip_price']").each(function () {
+                    vip_price.push($(this).val());
+                });
+                if (!sku_list)return false;
+                var query = {
+                    id: id,
+                    sku_list: getSkuData(),
+                    sku_info: getSkuInfo(),
+                    has_sku: $(".form input[name='has_sku']:checked").val(),
+                    ori_price: ori_price,
+                    price: price,
+                    cnt1: cnt1,
+                    price2: price2,
+                    cnt2: cnt2,
+                    price3: price3,
+                    cnt3: cnt3,
+                    quantity: quantity,
+                    product_code: product_code,
+                    vip_price: vip_price
+                };
+//				console.log(query);
+                if (query.sku_list.length == 0 || query.sku_info.Length == 0) {
+                    return false;
+                }
+                myUtils.ajaxpost($(".js_sku_submit"), url, query);
+            });
+
+            $(".skuvalue_wrp").click(function (ev) {
+                //console.log(ev.target);
+                $ele = $(ev.target);
+                if ($ele.hasClass("js_sku_value")) {
+                    $ele.toggleClass("checked");
+                    createSKUTable();
+                    wxuploadimg.init({cont: ".wxuploaderimg"});
+                    console.log(window.skuvalue);
+                    if((window.skuvalue instanceof Array)){
+                        setSkuData(window.skuvalue);
+                    }else{
+                        setSkuData(JSON.parse(window.skuvalue));
+                    }
+                }
+            });
+
+            $(".sku_wrp").click(function (ev) {
+                manageSkuClick(ev);
+            });
+            $(".js_sku_change input[type='radio']").click(function (ev) {
+                if ($(ev.target).val() == 0) {
+                    $(".unify").show();
+                    $(".sku-panel-wrp").hide();
+                    $(".js_sku_change input[type='radio']:eq(0)").attr('checked', 'checked');
+                    $(".js_sku_change input[type='radio']:eq(1)").removeAttr('checked');
+                } else {
+                    $(".unify").hide();
+                    $(".sku-panel-wrp").show();
+                    $(".js_sku_change input[type='radio']:eq(1)").attr('checked', 'checked');
+                    $(".js_sku_change input[type='radio']:eq(0)").removeAttr('checked');
+                }
+            });
+            //选中
+            $(".js_sku_change input[type='radio']:checked").click();
+
+        })
+    </script>
+
+{/block}

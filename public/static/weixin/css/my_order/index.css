@@ -1,0 +1,92 @@
+.order-tab{
+    margin-top:20px;
+}
+.my-order{
+    background: white;
+    margin-top: 20px;
+}
+.my-order-delivery{
+    height:50px;
+    line-height: 50px;
+    border-bottom: 1px solid #eaeaea;
+    padding:0 10px;
+    font-size:14px;
+}
+.my-order-delivery-left{
+    float: left;
+}
+.my-order-delivery-right{
+    float: right;
+    color:deepskyblue;
+}
+.my-order-mid{
+    height:120px;
+    overflow: hidden;
+    border-bottom: 1px solid #eaeaea;
+}
+.my-order-mid-img{
+    float: left;
+    width:100px;
+    height:100px;
+    margin: 10px;
+}
+.my-order-mid-img img{
+    width:100%;
+    height:100%;
+}
+.my-order-mid-title{
+    height:50px;
+    line-height: 25px;
+    width:190px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+.my-order-mid-mn{
+    margin-top: 20px;
+    color:deepskyblue;
+}
+.my-order-mid-money{
+    float: left;
+}
+.my-order-mid-number{
+    float: right;
+    margin-right: 10px;
+}
+.my-order-bottom{
+    height:50px;
+    padding:0 10px;
+    border-bottom:1px solid #eaeaea;
+}
+.my-order-bottom-left{
+    float: left;
+    line-height: 50px;
+}
+.my-order-bottom-sum{
+    color:deepskyblue;
+}
+.my-order-bottom button{
+    float: right;
+    border:none;
+    height: 30px;
+    line-height: 30px;
+    margin:10px 0 10px 10px;
+    padding:0 6px;
+    background: deepskyblue;
+    color: #fff;
+    font-size: 14px;
+}
+.my-order-bottom .state{
+    float: right;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    margin:10px 0 10px 10px;
+    padding:0 6px;
+    background: #cccccc;
+    color: #fff;
+    font-size: 14px;
+}
+/*weui样式覆盖*/
+.weui-tab__bd .weui-tab__bd-item,.weui-tab{
+    height:initial;
+}

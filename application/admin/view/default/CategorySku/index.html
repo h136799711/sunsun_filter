@@ -1,0 +1,80 @@
+{extend name="default/template/base_index" /}
+{block name="area_header"}
+	<style type="text/css">
+		.selected{
+			background-color: #326196;
+		}
+	</style>
+{/block}
+
+{block name="area_body"}
+{include file="default/Widget/topbar" /}
+<div class="admin-main container-fluid">
+	{include file="default/Widget/left" /}
+	<div class="admin-main-content">
+		{include file="default/Widget/breadcrumb" /}
+			
+			<div class="text-center"><h4> 所属类目: {$cate_vo.name}, 以下是已关联规格 </h4></div>
+				<div class="filter-controls">
+
+				</div>
+				<!-- 操作按钮 -->
+				<div class="btn-controls">
+					<a href="{:url('Admin/Category/index',array('parent'=>$parent))}" class="btn btn-default btn-sm "><i class="fa fa-reply"></i>返回</a>
+					<a class="btn btn-primary btn-sm" href="{:url('Admin/CategorySku/add',array('cate_id'=>$cate_id,'parent'=>$parent))}"><i class="fa fa-plus"></i>{:L('BTN_ADD')}</a>
+					<a target-form="selectitem" class="btn btn-danger btn-sm ajax-post confirm" href="{:url('Admin/CategorySku/bulkDelete')}"><i class="fa fa-trash"></i>选中取消关联</a>
+					
+				</div>
+
+
+				<table class="table table-striped table table-hover  table-condensed">
+					<thead>
+						<tr>
+							<th>
+								<input type="checkbox" class="selectall" onclick="myUtils.selectall(this,'.selectitem');" />
+							</th>
+							<th>
+								规格
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						{empty name="list"}
+							<tr>
+								<td colspan="3" class="text-center">{:L('NO_DATA')}</td>
+							</tr>
+							{else/}
+							{volist name="list" id="vo"}
+								<tr>
+									<td>
+										<input type="checkbox" value="{$vo.id}" name="ids[]" class="selectitem" /></td>
+									<td>
+										<a target="_blank" href="{:url('Admin/Skuvalue/index',array('sku_id'=>$vo['sku_id'],'parent'=>$parent))}">{$vo.name}</a>
+									</td>
+									
+									<td>
+										
+										<a href="{:url('Admin/CategorySku/delete',array('id'=>$vo['id'],'parent'=>$parent))}" class="btn btn-sm btn-danger ajax-get confirm"><i class="fa fa-trash"></i>取消关联</a>
+									
+									</td>
+								</tr>
+
+							{/volist}
+						{/empty}
+					</tbody>
+				</table>
+				<div>{$show}</div>
+			</div>
+
+		</div>
+		<!-- END admin-main-content -->
+	</div>
+		<!-- END admin-main-->
+{/block}
+
+{block name="area_footer"}
+
+{/block}

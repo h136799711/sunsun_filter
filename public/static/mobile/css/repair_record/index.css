@@ -1,0 +1,34 @@
+.repair-item{
+    margin-top:30px
+}
+
+.repair-item-body{
+    padding-left:30px;
+    height:60px;
+    line-height:60px;
+    border-bottom:1px solid #e1e1e1;
+    font-size: 16px;
+    background: white;
+}
+.repair-item-head{
+    background: deepskyblue;
+    color:white;
+}
+.repair-item-body span{
+    color: #757575;
+}
+.repair-item-footer{
+    padding-left:30px;
+    height:60px;
+    font-size: 16px;
+    background: white;
+}
+.repair-item-footer a{
+    float:right;
+    margin-top:20px;
+    color:deepskyblue;
+    margin-right:20px;
+    border:1px solid deepskyblue;
+    padding:2px 6px;
+    border-radius:4px;
+}

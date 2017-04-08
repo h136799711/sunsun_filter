@@ -1,0 +1,39 @@
+{extend name="template/base_default"}
+{block name="header"}
+<link rel="stylesheet" href="__CSS__/common.css">
+<link rel="stylesheet" href="__CSS__/reporting/index.css">
+{/block}
+{block name="body"}
+<div class="reporting-btn">
+    <div class="reporting-btn-left"><a href="">报修</a></div>
+    <div class="reporting-btn-right">
+        <a href="{:url('user/order1')}">订单</a>
+        <button>取消派单</button>
+    </div>
+</div>
+<div class="reporting-text">等待师傅</div>
+<div class="reporting-img"><img src="__IMG__/user/sending.gif"></div>
+<div class="reporting-time">已等待：</div>
+{/block}
+{block name="footer"}
+<script type="text/javascript" src="__JS__/common.js"></script>
+<script type="text/javascript" src="__JS__/index/common.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        var time = 0;
+        var timer = setInterval(function () {
+            time += 1;
+            var h = Math.floor(time/3600);
+            var m = Math.floor((time-h*3600)/60);
+            var s = time-h*3600-m*60;
+            if(h>0){
+                $('.reporting-time').html('已等待：<span>'+h+'</span>时<span>'+m+'</span>分<span>'+s+'</span>秒')
+            }else if(m>0){
+                $('.reporting-time').html('已等待：<span>'+m+'</span>分<span>'+s+'</span>秒')
+            }else{
+                $('.reporting-time').html('已等待：<span>'+s+'</span>秒')
+            }
+        },1000)
+    })
+</script>
+{/block}

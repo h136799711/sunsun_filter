@@ -1,0 +1,49 @@
+{extend name="template/base_default"}
+{block name="header"}
+<link rel="stylesheet" href="__CSS__/common.css">
+<link rel="stylesheet" href="__CSS__/login/index.css">
+{/block}
+{block name="body"}
+<div class="login">
+    <div class="login-username">
+        <div class="login-username-img">
+            <img src="__IMG__/user/User.png">
+        </div>
+        <div class="login-username-ipt">
+            <input type="text" id="phone" placeholder="请输入手机号">
+        </div>
+    </div>
+    <div class="login-username">
+        <div class="login-username-img">
+            <img src="__IMG__/user/Password.png">
+        </div>
+        <div class="login-username-ipt">
+            <input type="password" id="password" placeholder="请输入密码">
+        </div>
+    </div>
+    <button class="login-btn">登录</button>
+    <a href="{:url('index/register')}"><button class="register-btn">注册</button></a>
+</div>
+{include file="template/nav_bar"}
+{/block}
+{block name="footer"}
+<script type="text/javascript" src="__JS__/public.js"></script>
+<script type="text/javascript">
+    $('.login-btn').click(function(){
+        var phone = $('#phone').val();
+        var password = $('#password').val();
+        var $this = $(this);
+        $this.addClass('weui-btn_disabled').attr('disabled','disabled');
+        ajax_post(getBaseUrl()+'/index/login',{phone:phone,password:password},{
+            success:function(data){
+                $.toptip(data.msg, 'success');
+                $this.removeClass('weui-btn_disabled').removeAttr("disabled");
+            },
+            error:function(data){
+                $.toptip(data.msg, 'error');
+                $this.removeClass('weui-btn_disabled').removeAttr("disabled");
+            }
+        })
+    });
+</script>
+{/block}

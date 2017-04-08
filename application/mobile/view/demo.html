@@ -1,0 +1,30 @@
+{extend name="template/base_default"}
+{block name="header"}
+<style>
+    .slider-nav__item {
+        background: #fafafa;
+    }
+
+    .slider-nav__item--current {
+        background: black;
+    }
+
+    .slider-nav__item:hover {
+        background: black;
+    }
+</style>
+{/block}
+{block name="body"}
+我是中间
+<br>
+下面是图片地址的简单使用
+<img src="__IMG__/demo/touxiang.png">
+<br>
+其他一样 _JS_  _CSS_
+
+<br>
+<div id="app"></div>
+{/block}
+{block name="footer"}
+<script type="text/javascript" src="__JS__/index/common.js"></script>
+{/block}

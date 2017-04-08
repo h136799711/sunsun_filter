@@ -1,0 +1,1582 @@
+{
+  "last_modified":"2016-12-13 11:27:48",
+  "client_id": "by58018f50cfcae1",
+  "client_secret": "cb0bfaf5b9b2f53a216bf518e18fef18",
+  "alg":"md5_v3",
+  "project_name": "森森硬件项目接口",
+  "url_list":[
+    {"desc":"APP测试环境地址(新)","url":"http://devsunsun.8raw.com/index.php?lang=en"}
+  ],
+  "meta_list":[
+    {"title":"友盟推送测试","value":"http://devsunsun.8raw.com/index.php/device_event/test_push?uid={用户id}&title=[test]"},
+    {"title":"快递查看地址","value":"http://devsunsun.8raw.com/web.php/Express/index?order_code={订单编号}&uid={用户id}&psw={用户密码}"},
+    {"title":"模拟支付完成(荒废)","value":"http://devsunsun.8raw.com/index.php/payback/test?pay_type={1=>支付宝(未毕),2=>Paypal(未毕),3=>微信,4=>余额(未毕)}&pay_cde={支付编号}[&fee={支付金额,分,可选,默认1}]"},
+    {"title":"支付宝异步通知地址","value":"http://devsunsun.8raw.com/index.php/Alipay/notify"},
+    {"title":"单图片查看接口","value":"http://devsunsun.8raw.com/index.php/picture/index?id={图片id}"},
+    {"title":"头像查看地址","value":"http://devsunsun.8raw.com/index.php/picture/avatar?uid={用户id}"},
+    {"title":"单图片上传接口地址","value":"http://devsunsun.8raw.com/index.php/file/upload"},
+    {"title":"单图片上传测试地址","value":"http://devsunsun.8raw.com/web.php/test/upload"},
+    {"title":"支持语言","value":" English:en;简体中文: zh-cn"},
+    {"title":"支持语言接口地址","value":"http://devsunsun.8raw.com/index.php/Lang/support"},
+    {"title":"接口文档地址","value":"https://doc.oschina.net/all-itboye"},
+    {"title":"开发环境接口地址","value":"http://devsunsun.8raw.com/index.php"},
+    {"title":"定时任务处理（手动调用请加上from=crontab）","value":"http://devsunsun.8raw.com/index.php/Task"}
+  ],
+  "api_list": [
+    {
+      "desc": "设备版本接口",
+      "list": [
+        {
+          "desc": "某设备历史版本接口",
+          "type": "By_SunsunDeviceVersion_query",
+          "version": ["100"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S01"
+            },
+            {
+              "key": "cur_page",
+              "desc": "当前页码",
+              "value": "1"
+            },
+            {
+              "key": "size",
+              "desc": "每页数据量",
+              "value": "30"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "用户设备接口",
+      "list": [
+        {
+          "desc": "用户设备添加接口",
+          "type": "By_SunsunUserDevice_add",
+          "version": ["100"],
+          "params": [
+            {
+              "key": "uid",
+              "desc": "用户id",
+              "value": "183"
+            },
+            {
+              "key": "did",
+              "desc": "设备id",
+              "value": "S0100000000001"
+            },
+            {
+              "key": "device_nickname",
+              "desc": "设备昵称",
+              "value": "S0100000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "zyh",
+              "email": "786583346@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "获取用户设备信息接口",
+          "type": "By_SunsunUserDevice_query",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "uid",
+              "desc": "用户id",
+              "value": "183"
+            }
+          ],
+          "authors": [
+            {
+              "name": "zyh",
+              "email": "786583346@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "获取用户设备删除",
+          "type": "By_SunsunUserDevice_del",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "id",
+              "desc": "用户设备表id",
+              "value": "1"
+            }
+          ],
+          "authors": [
+            {
+              "name": "zyh",
+              "email": "786583346@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户设备信息修改",
+          "type": "By_SunsunUserDevice_change",
+          "version": ["101"],
+          "params": [
+            {
+              "key": "id",
+              "desc": "用户设备表id",
+              "value": "1"
+            },
+            {
+              "key": "device_nickname",
+              "desc": "设备昵称（可选，不传则不修改）",
+              "value": "过滤桶设备昵称"
+            },
+            {
+              "key": "nickname_a",
+              "desc": "昵称A（可选，不传则不修改）",
+              "value": "备用插座A"
+            },
+            {
+              "key": "nickname_b",
+              "desc": "昵称B（可选，不传则不修改）",
+              "value": "备用插座B"
+            },
+            {
+              "key": "temp_min",
+              "desc": "温度下限（可选，不传则不修改）温度值10倍",
+              "value": "200"
+            },
+            {
+              "key": "temp_max",
+              "desc": "温度上限（可选，不传则不修改）温度值10倍",
+              "value": "400"
+            },
+            {
+              "key": "temp_alert",
+              "desc": "温度报警开关（可选，不传则不修改）0：关 1：开",
+              "value": "1"
+            }
+          ],
+          "authors": [
+            {
+              "name": "zyh",
+              "email": "786583346@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "加热棒设备相关接口",
+      "list": [
+        {
+          "desc": "加热棒在线设备统计数量接口",
+          "type": "By_SunsunHeatingRod_clientCount",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "加热棒获取设备会话信息接口",
+          "type": "By_SunsunHeatingRod_sessionInfo",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0200000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "加热棒固查询最新版本接口",
+          "type": "By_SunsunHeatingRod_queryLatest",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0200000000001"
+            },
+            {
+              "key": "v",
+              "desc": "设备版本（不传则更新最新版本，传了则更新到指定版本）",
+              "value": ""
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "加热棒固件开始更新接口",
+          "type": "By_SunsunHeatingRod_updateFirmware",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0200000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "加热棒设备通信接口",
+          "type": "By_SunsunHeatingRod_sendMessage",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0200000000001"
+            },
+            {
+              "key": "message",
+              "desc": "发送给设备的消息字符串（json）",
+              "value": "{\"reqType\":\"104\",\"sn\":\"1345059751\",\"devLock\":\"1\",\"cfg\":\"1\",\"tCyc\":\"10\"}"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "加热棒设备设置接口（如果不控制某个参数，则无需传过来）",
+          "type": "By_SunsunHeatingRod_devicesCtrl",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "debug",
+              "desc": "是否测试（1：测试模拟 0：真实设备）",
+              "value": "0"
+            },
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0200000000001"
+            },
+            {
+              "key": "t_set",
+              "desc": "设置温度（温度的十倍，范围：200 - 350（20 - 35℃",
+              "value": "200"
+            },
+            {
+              "key": "t_cyc",
+              "desc": "实时温度推送周期 单位：分钟范围：1 - 1440",
+              "value": "10"
+            },
+            {
+              "key": "cfg",
+              "desc": "异常报警推送开关(Bit0：异常报警推送 0: 关 1:开)",
+              "value": "0"
+            },
+            {
+              "key": "dev_lock",
+              "desc": "设备锁机状态",
+              "value": "0"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "加热棒获取用户设备信息接口（含昵称等）",
+          "type": "By_SunsunFilterVat_userDeviceInfo",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0200000000001"
+            },
+            {
+              "key": "uid",
+              "desc": "用户id",
+              "value": "130"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "加热棒获取设备信息接口",
+          "type": "By_SunsunHeatingRod_deviceInfo",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0200000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "加热棒设备事件模拟接口（记录之后会正常情况下2分钟内发送APP推送或短信TODO）",
+          "type": "By_SunsunHeatingRod_deviceEvent",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0200000000001"
+            },
+            {
+              "key": "code",
+              "desc": "code事件（0：无操作 1：实时温度推送（服务器记录温度） 2：加热棒过温异常 3：温度传感器1异常 4：温度传感器2异常 5：加热丝开路异常）",
+              "value": "2"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "过滤桶设备相关接口",
+      "list": [
+
+        {
+          "desc": "过滤桶固查询最新版本接口",
+          "type": "By_SunsunFilterVat_queryLatest",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "过滤桶固件开始更新接口",
+          "type": "By_SunsunFilterVat_updateFirmware",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "过滤桶设备通信接口",
+          "type": "By_SunsunFilterVat_sendMessage",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            },
+            {
+              "key": "message",
+              "desc": "发送给设备的消息字符串（json）",
+              "value": "{\"reqType\":\"104\",\"sn\":\"1345059751\",\"devLock\":\"1\",\"cfg\":\"1\",\"tCyc\":\"10\"}"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "过滤桶在线设备统计数量接口",
+          "type": "By_SunsunFilterVat_clientCount",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "过滤桶获取设备会话信息接口",
+          "type": "By_SunsunFilterVat_sessionInfo",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "过滤桶设备设置接口（如果不控制某个参数，则无需传过来）",
+          "type": "By_SunsunFilterVat_devicesCtrl",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "debug",
+              "desc": "是否测试（1：测试模拟 0：真实设备）",
+              "value": "0"
+            },
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            },
+            {
+              "key": "cl_en",
+              "desc": "定时清洗开关",
+              "value": "0"
+            },
+            {
+              "key": "cl_week",
+              "desc": "周清洗设置",
+              "value": "0"
+            },
+            {
+              "key": "cl_dur",
+              "desc": "清洗时长设置",
+              "value": "0"
+            },
+            {
+              "key": "cl_state",
+              "desc": "清洗状态",
+              "value": "0"
+            },
+            {
+              "key": "cl_cfg",
+              "desc": "清洗设置",
+              "value": "0"
+            },
+            {
+              "key": "cl_tm",
+              "desc": "清洗时间点设置",
+              "value": "0000"
+            },
+            {
+              "key": "uv_on",
+              "desc": "杀菌灯开启时间",
+              "value": "0000"
+            },
+            {
+              "key": "uv_off",
+              "desc": "杀菌灯关闭时间",
+              "value": "0000"
+            },
+            {
+              "key": "uv_wh",
+              "desc": "杀菌灯累计工作时间",
+              "value": "0"
+            },
+            {
+              "key": "uv_cfg",
+              "desc": "杀菌灯设置",
+              "value": "0"
+            },
+            {
+              "key": "out_state_a",
+              "desc": "备用插座A状态",
+              "value": "0"
+            },
+            {
+              "key": "out_state_b",
+              "desc": "备用插座B状态",
+              "value": "0"
+            },
+            {
+              "key": "dev_lock",
+              "desc": "设备锁机状态",
+              "value": "0"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "过滤桶获取用户设备信息接口（含昵称等）",
+          "type": "By_SunsunFilterVat_userDeviceInfo",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            },
+            {
+              "key": "uid",
+              "desc": "用户id",
+              "value": "130"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "过滤桶获取设备信息接口",
+          "type": "By_SunsunFilterVat_deviceInfo",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "过滤桶设备事件模拟接口（记录之后会正常情况下2分钟内发送邮件到该设备绑定的用户邮件中）",
+          "type": "By_SunsunFilterVat_deviceEvent",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "did",
+              "desc": "设备did",
+              "value": "S0100000000001"
+            },
+            {
+              "key": "code",
+              "desc": "code事件（0：无操作1：杀菌灯更换维护提示2：杀菌灯异常报警（损坏）3：清洗开启4：清洗电机堵转异常）",
+              "value": "2"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "异步通知模拟接口",
+      "list": [
+        {
+          "desc": "支付宝异步通知模拟接口",
+          "type": "By_Alipay_simulator",
+          "version": ["100"],
+          "params": [
+            {
+              "key": "out_trade_no",
+              "desc": "支付编号[必选]",
+              "value": "PA16314215258567183102"
+            },
+            {
+              "key": "total_amount",
+              "desc": "支付金额[单位:元]",
+              "value": "0.01"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "轮播广告相关接口",
+      "list": [
+        {
+          "desc": "轮播广告查询接口",
+          "type": "By_Banners_query",
+          "version": ["100","101"],
+          "params": [
+            {
+              "key": "position",
+              "desc": "轮播位置[数据字典position说明]",
+              "value": "6079"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "意见反馈接口",
+      "list": [
+        {
+          "desc": "意见反馈",
+          "type": "By_Suggest_add",
+          "version": ["100"],
+          "params": [
+            {
+              "key": "device_type",
+              "desc": "设备类型(S01: 过滤桶 S02: 加热棒 S03: 变频水泵 .... 参考文档oschina)【必需】",
+              "value": "S01"
+            },
+            {
+              "key": "name",
+              "desc": "真实姓名[可选]",
+              "value": ""
+            },
+            {
+              "key": "email",
+              "desc": "邮箱[必选]",
+              "value": "786583346@qq.com"
+            },
+            {
+              "key": "tel",
+              "desc": "电话[必选]",
+              "value": "18358587554"
+            },
+            {
+              "key": "uid",
+              "desc": "用户id",
+              "value": "183"
+            },
+            {
+              "key": "text",
+              "desc": "反馈内容[必选]",
+              "value": ""
+            }
+          ],
+          "authors": [
+            {
+              "name": "zyh",
+              "email": "786583346@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+    "desc": "消息相关接口",
+    "list": [
+      {
+        "desc": "消息添加接口 - 广播[uid为0&to_uid为-2],单播[uid为0&to_uid不为0],咨询[uid不为0&to_uid为-2],私聊[uid不为0&to_uid不为0]",
+        "type": "By_Message_push",
+        "version": [
+          "100"
+        ],
+        "params": [
+          {
+            "key": "uid",
+            "desc": "发送方uid,0为系统",
+            "value": "0"
+          },{
+          "key": "to_uid",
+          "desc": "接收方uid,-2位为系统(同时上面uid为0时为公告),多个逗号分隔,50+时filecast",
+          "value": "38"
+          },
+          {
+            "key": "msg_type",
+            "desc": "必须,类型[6042=>系统,6180=>维修,6074=>其他]",
+            "value": "6042"
+          },
+          {
+            "key": "title",
+            "desc": "可选,消息标题",
+            "value": "消息概要"
+          },
+          {
+            "key": "summary",
+            "desc": "可选,消息摘要",
+            "value": "消息摘要"
+          },
+          {
+            "key": "content",
+            "desc": "消息内容",
+            "value": "消息内容"
+          },
+          {
+            "key": "extra",
+            "desc": "可选,额外信息",
+            "value": ""
+          },
+          {
+            "key": "push",
+            "desc": "是否推送,0(默认)/1",
+            "value": ""
+          },
+          {
+            "key": "record",
+            "desc": "是否记录,0/1(默认),多to_uid无效",
+            "value": ""
+          },
+          {
+            "key": "client",
+            "desc": "可选,推送的APP[worker=>技工端,driver=>司机端,其他=>全端]",
+            "value": ""
+          }
+        ],
+        "authors": [
+          {
+            "name": "rainbow",
+            "email": "977746075@qq.com"
+          }
+        ]
+      },
+      {
+        "desc": "消息添加接口",
+        "type": "By_Message_add",
+        "version": [
+          "100"
+        ],
+        "params": [
+          {
+            "key": "uid",
+            "desc": "发出用户id[必须],0=>系统",
+            "value": "105"
+          },{
+          "key": "to_uid",
+          "desc": "接受用户id[必须],-2=>系统(同时上面uid为0时为公告)",
+          "value": "105"
+          },
+          {
+            "key": "msg_type",
+            "desc": "必须,类型[6042=>系统,6180=>维修,6074=>其他]",
+            "value": "6048"
+          },
+          {
+            "key": "title",
+            "desc": "消息标题[必须]",
+            "value": "我是消息概要"
+          },
+          {
+            "key": "summary",
+            "desc": "消息摘要[必须]",
+            "value": "我是消息概要"
+          },
+          {
+            "key": "content",
+            "desc": "消息内容[必须]",
+            "value": "我是消息内容"
+          },
+          {
+            "key": "extra",
+            "desc": "额外信息[可选]",
+            "value": ""
+          }
+        ],
+        "authors": [
+          {
+            "name": "hebidu",
+            "email": "346551990@qq.com"
+          }
+        ]
+      },
+      {
+        "desc": "消息查询接口",
+        "type": "By_Message_query",
+        "version": [
+          "100"
+        ],
+        "params": [
+          {
+            "key": "uid",
+            "desc": "必须,用户uid(用户某类消息,包括该类公告)或-2(系统公告)",
+            "value": "105"
+          },
+          {
+            "key": "msg_type",
+            "desc": "可选,类型[6042=>系统,6180=>维修,6074=>其他,0所有]",
+            "value": "6048"
+          },
+          {
+            "key": "start_time",
+            "desc": "可选,最低时间",
+            "value": ""
+          },
+          {
+            "key": "page_index",
+            "desc": "可选,页码",
+            "value": "1"
+          },
+          {
+            "key": "page_size",
+            "desc": "可选,页码大小",
+            "value": "10"
+          }
+        ],
+        "authors": [
+          {
+            "name": "hebidu",
+            "email": "346551990@qq.com"
+          }
+        ]
+      }
+    ]
+    },
+    {
+      "desc": "用户相关接口",
+      "list": [
+        {
+          "desc": "自动登录接口",
+          "type": "By_User_autoLogin",
+          "version": ["100"],
+          "params": [
+            {
+              "key": "uid",
+              "desc": "登录用户id",
+              "value": "120"
+            },
+            {
+              "key": "auto_login_code",
+              "desc": "登录返回的用户信息中的auto_login_code（授权码）",
+              "value": "120"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "修改密码( 授权码形式15分钟时效 )",
+          "type": "By_User_updatePwdWithAuthCode",
+          "version": ["100"],
+          "params": [
+            {
+              "key": "s_id",
+              "desc": "s_id",
+              "value": "itboye"
+            },
+            {
+              "key": "uid",
+              "desc": "用户id",
+              "value": "39"
+            },
+            {
+              "key": "password",
+              "desc": "旧密码（加密过的）",
+              "value": "123456"
+            },
+            {
+              "key": "auth_code",
+              "desc": "授权码(itboye为万能授权码)",
+              "value": "itboye"
+            },
+            {
+              "key": "new_pwd",
+              "desc": "新密码（明文）",
+              "value": "123456"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户登录(手机号形式)",
+          "type": "By_User_loginByCode",
+          "version": ["100","101","102"],
+          "params": [
+            {
+              "key": "role",
+              "desc": "角色",
+              "value": ""
+            },
+            {
+              "key": "device_token",
+              "desc": "设备唯一码",
+              "value": "device_id_um"
+            },
+            {
+              "key": "device_type",
+              "desc": "设备类型ios固定ios,android固定android(ios,android,pc,unknown)",
+              "value": "ios"
+            },
+            {
+              "key": "country",
+              "desc": "手机号国家区号",
+              "value": "+86"
+            },
+            {
+              "key": "mobile",
+              "desc": "登录手机号",
+              "value": "13484379290"
+            },
+            {
+              "key": "code",
+              "desc": "验证码",
+              "value": "itboye"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户登录",
+          "type": "By_User_login",
+          "version": ["102","103","104"],
+          "params": [
+            {
+              "key": "role",
+              "desc": "角色",
+              "value": ""
+            },
+            {
+              "key": "device_token",
+              "desc": "设备唯一码",
+              "value": "device_id_um"
+            },
+            {
+              "key": "device_type",
+              "desc": "设备类型ios固定ios,android固定android(ios,android,pc,unknown)",
+              "value": "ios"
+            },
+            {
+              "key": "country",
+              "desc": "手机号国家区号",
+              "value": "+86"
+            },
+            {
+              "key": "username",
+              "desc": "登录用户名(邮箱或者手机)",
+              "value": "13484379290"
+            },
+            {
+              "key": "password",
+              "desc": "登录密码（6-32位）",
+              "value": "123456"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户删除",
+          "type": "By_User_delete",
+          "version": ["100"],
+          "params": [
+            {
+              "key": "mobile",
+              "desc": "登录用户名（限手机号）",
+              "value": "13484379290"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "邮箱用户注册",
+          "type": "By_User_registerByEmail",
+          "version": ["101","102"],
+          "params": [
+            {
+              "key": "nickname",
+              "desc": "昵称[可选]",
+              "value": "346551990@qq.com"
+            },
+            {
+              "key": "contact",
+              "desc": "联系电话[可选]",
+              "value": "15858199064"
+            },
+            {
+              "key": "address",
+              "desc": "地址信息[可选]",
+              "value": "瑞典科迪"
+            },
+            {
+              "key": "email",
+              "desc": "邮箱账户",
+              "value": "346551990@qq.com"
+            },
+            {
+              "key": "code",
+              "desc": "验证码[必须](itboye是万能验证码，测试其它请调用验证码接口获取)",
+              "value": "itboye"
+            },
+            {
+              "key": "password",
+              "desc": "注册密码[必须]（6-32位）",
+              "value": "123456"
+            },
+            {
+              "key": "from",
+              "desc": "注册来源[必须](0:系统)",
+              "value":  "0"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户注册",
+          "type": "By_User_register",
+          "version": ["101","102"],
+          "params": [
+            {
+              "key": "code",
+              "desc": "验证码[必须](itboye是万能验证码，测试其它请调用验证码接口获取)",
+              "value": "itboye"
+            },
+            {
+              "key": "country",
+              "desc": "国家电话[手机号注册必须]（国家区号）",
+              "value": "+86"
+            },
+            {
+              "key": "username",
+              "desc": "注册用户名[必须]（限手机号）",
+              "value": "13484379290"
+            },
+            {
+              "key": "password",
+              "desc": "注册密码[必须]（6-32位）",
+              "value": "123456"
+            },
+            {
+              "key": "from",
+              "desc": "注册来源[必须](0:系统)",
+              "value":  "0"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户修改密码(手机号+验证码)",
+          "type": "By_User_updatePwd",
+          "params": [
+            {
+              "key": "s_id",
+              "desc": "s_id",
+              "value": "itboye"
+            },
+            {
+              "key": "country",
+              "desc": "国家[必须]",
+              "value": "+86"
+            },
+            {
+              "key": "code",
+              "desc": "验证码[必须](itboye是万能验证码，测试其它请调用验证码接口获取)",
+              "value": "itboye"
+            },
+            {
+              "key": "mobile",
+              "desc": "手机号",
+              "value": "13484379290"
+            },
+            {
+              "key": "password",
+              "desc": "新密码[必须]（6-32位）",
+              "value": "654321"
+            }
+          ],
+          "version": ["101"],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户修改密码(邮箱号+验证码)",
+          "type": "By_User_updatePwdByEmail",
+          "params": [
+            {
+              "key": "s_id",
+              "desc": "s_id",
+              "value": "itboye"
+            },
+            {
+              "key": "code",
+              "desc": "验证码[必须](itboye是万能验证码，测试其它请调用验证码接口获取)",
+              "value": "itboye"
+            },
+            {
+              "key": "email",
+              "desc": "邮箱号",
+              "value": "7865833460@qq.com"
+            },
+            {
+              "key": "password",
+              "desc": "新密码[必须]（6-32位）",
+              "value": "654321"
+            }
+          ],
+          "version": ["101"],
+          "authors": [
+            {
+              "name": "zyh",
+              "email": "7865833460@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户修改密码(通过旧密码)",
+          "type": "By_User_updatePwdByOldPwd",
+          "params": [
+            {
+              "key": "s_id",
+              "desc": "s_id",
+              "value": "itboye"
+            },
+            {
+              "key":"uid",
+              "desc":"用户id[必须]",
+              "value":"42"
+            },
+            {
+              "key": "password",
+              "desc": "旧密码[必须]",
+              "value": "123456"
+            },
+            {
+              "key": "new_password",
+              "desc": "新密码[必须]",
+              "value": "654321"
+            }
+          ],
+          "version": ["100"],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户更新维度经度",
+          "type": "By_User_updateLatLng",
+          "params": [
+            {
+              "key": "s_id",
+              "desc": "s_id",
+              "value": "itboye"
+            },
+            {
+              "key":"id",
+              "desc":"用户id[必须]",
+              "value":"42"
+            },
+            {
+              "key": "lat",
+              "desc": "维度[必须]",
+              "value": "39.8875400000"
+            },
+            {
+              "key": "lng",
+              "desc": "经度[必须]",
+              "value": "116.6299160000"
+            }
+          ],
+          "version": ["100"],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "用户个人资料修改",
+          "type": "By_User_update",
+          "params": [
+            {
+              "key": "s_id",
+              "desc": "s_id",
+              "value": "itboye"
+            },
+            {
+              "key":"uid",
+              "desc":"用户id[必须]",
+              "value":"42"
+            },
+            {
+              "key": "nickname",
+              "desc": "昵称[可选]",
+              "value": "123456"
+            },
+            {
+              "key": "sex",
+              "desc": "性别(0,1)[可选]",
+              "value": "0"
+            },
+            {
+              "key": "sign",
+              "desc": "个性签名[可选]",
+              "value": "我是签名"
+            },
+            {
+              "key": "email",
+              "desc": "邮箱[可选]",
+              "value": "12465789@qq.com"
+            },
+            {
+              "key": "weixin",
+              "desc": "微信号[可选]",
+              "value": "13484379290"
+            },
+            {
+              "key": "company",
+              "desc": "公司[可选]",
+              "value": "杭州博也网络科技有限公司"
+            },
+            {
+              "key": "job_title",
+              "desc": "岗位职位[可选]",
+              "value": "采购师"
+            },
+            {
+              "key": "loc_country",
+              "desc": "所在国家编码(对应数据库中的编码)[可选]",
+              "value": "1"
+            },
+            {
+              "key": "loc_area",
+              "desc": "所在地区(文字描述)[可选]",
+              "value": "中国 浙江 杭州"
+            }
+          ],
+          "version": ["100"],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "验证码相关接口",
+      "list": [
+        {
+          "desc": "验证码验证接口",
+          "type": "By_SecurityCode_check",
+          "version": ["100"],
+          "params": [
+            {
+              "key":"acceptor",
+              "desc": "接受者",
+              "value": "123456789"
+            },
+            {
+              "key": "code",
+              "desc": "验证码[必须]",
+              "value": "itboye"
+            },
+            {
+              "key": "code_type",
+              "desc": "发送验证码类型(1: 注册 2: 更新密码 3: 新绑定手机号 5: 登录)[必须]",
+              "value": "5"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "验证码创建接口(20161017 11:40)",
+          "type": "By_SecurityCode_create",
+          "version": ["100"],
+          "params": [
+            {
+              "key":"acceptor",
+              "desc": "接受者",
+              "value": "123456789"
+            },
+            {
+              "key": "code_type",
+              "desc": "发送验证码类型(1: 注册 2: 更新密码 3: 新绑定手机号 5: 登录)[必须]",
+              "value": "5"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "验证码发送接口(20161017 11:40)",
+          "type": "By_SecurityCode_send",
+          "version": ["101"],
+          "params": [
+            {
+              "key":"country",
+              "desc": "手机号国家区号[必须]带+号",
+              "value": "+86"
+            },
+            {
+              "key": "mobile",
+              "desc": "手机号[必须]",
+              "value": "13484379290"
+            },
+            {
+              "key": "code_type",
+              "desc": "发送验证码类型(1: 注册 2: 更新密码 3: 新绑定手机号 5: 登录)[必须]",
+              "value": "1"
+            },
+            {
+              "key": "send_type",
+              "desc": "发送类型(1: 注册 2: 更新密码 3: 新绑定手机号 5: 登录)[必须]",
+              "value": "1"
+
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "验证码发送接口(邮件 临时用待整合)",
+          "type": "By_SecurityCode_sendEmail",
+          "version": ["101"],
+          "params": [
+            {
+              "key": "email",
+              "desc": "邮箱号[必须]",
+              "value": "78658346@qq.com"
+            },
+            {
+              "key": "code_type",
+              "desc": "发送验证码类型(1: 注册 2: 更新密码 3: 新绑定手机号 5: 登录)[必须]",
+              "value": "1"
+            },
+            {
+              "key": "send_type",
+              "desc": "发送类型(1: 注册 2: 更新密码 3: 新绑定手机号 5: 登录)[必须]",
+              "value": "1"
+
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "验证码校验接口",
+          "type": "By_SecurityCode_verify",
+          "version": ["101"],
+          "params": [
+            {
+              "key":"country",
+              "desc": "手机号国家区号[必须]带+号",
+              "value": "+86"
+            },
+            {
+              "key": "mobile",
+              "desc": "手机号[必须]",
+              "value": "13484379290"
+            },
+            {
+              "key": "code",
+              "desc": "验证码[必须]",
+              "value": "itboye"
+            },
+            {
+              "key": "code_type",
+              "desc": "发送验证码类型(1: 注册 2: 更新密码 3: 新绑定手机号 5: 登录)[必须]",
+              "value": "1"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "配置相关接口",
+      "list": [
+        {
+          "desc": "获取app接口配置(10分钟缓存时间)",
+          "type": "By_Config_app",
+          "version": ["100"],
+          "params": [
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "desc": "设备相关接口",
+      "list": [
+        {
+          "desc": "已登录设备查询接口",
+          "type": "By_LoginDevice_query",
+          "version": [
+            "100",
+            "101"
+          ],
+          "params": [
+            {
+              "key": "uid",
+              "desc": "用户UID[必须]",
+              "value": "188"
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        },
+        {
+          "desc": "已登录设备踢下线接口",
+          "type": "By_LoginDevice_logout",
+          "version": [
+            "100",
+            "101"
+          ],
+          "params": [
+            {
+              "key": "uid",
+              "desc": "用户UID[必须]",
+              "value": "188"
+            },
+            {
+              "key": "s_id",
+              "desc": "s_id[必须]",
+              "value": ""
+            }
+          ],
+          "authors": [
+            {
+              "name": "hebidu",
+              "email": "346551990@qq.com"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

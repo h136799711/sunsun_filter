@@ -1,0 +1,453 @@
+{extend name="default/template/base_index" /}
+
+
+{block name="area_header"}
+    <link rel="stylesheet" type="text/css" media="all" href="__CDN__/jquery-datetimepicker/jquery.datetimepicker.css">
+    <script type="text/javascript" src="__CDN__/jquery-datetimepicker/jquery.datetimepicker.js"></script>
+    <style type="text/css">
+        #select{
+            height:auto!important;
+            height:500px;
+            min-height:500px;
+        }
+        table{
+            border-collapse: collapse;
+            border-spacing: 0;
+            width:100%;
+        }
+        #exist tr{
+            height:50px;
+            line-height:50px;
+            vertical-align: middle;
+            width:100%;
+        }
+        table tr td,table tr th{
+            text-align: center;
+        }
+        #exist tr:nth-of-type(even){
+            border-top: 1px solid #dddddd;
+            background:rgb(252,252,252);
+        }
+
+        #select tr{
+            height:35px;
+        }
+        #select tr:nth-of-type(even){
+            background:aliceblue;
+        }
+
+        #exist tr td div, .new td div{
+            width:180px;
+            margin:0 auto;
+        }
+
+        input{
+            text-align: center;
+        }
+
+    </style>
+
+{/block}
+
+{block name="area_body"}
+    {include file="default/Widget/topbar" /}
+    <div class="admin-main container-fluid">
+        {include file="default/Widget/left" /}
+        <div class="admin-main-content">
+            {include file="default/Widget/breadcrumb" /}
+
+            <!-- 带验证 form -->
+            <form class="form-horizontal well validateForm">
+                <input type="hidden" name="g_id" value="{$id}" />
+                <input type="hidden" name="p_id"/>
+
+                <fieldset>
+                    <legend>{$name}</legend>
+                    <div class="form-group hide">
+                        <label for="btns" class="col-md-2 col-lg-2 control-label">&nbsp;</label>
+                        <div class="col-lg-10 col-md-10">
+                            <a target-form="validateForm" class="ajax-post btn-sm btn btn-primary" href="{:url('ProductGroup/add')}" autofocus="autofocus"><i class="fa fa-save"></i> {:L('BTN_SAVE')}</a>
+                            <a class="btn btn-default btn-sm " href="javascript:window.history.go(-1)"><i class="fa fa-reply"></i>返回</a>
+                        </div>
+                    </div>
+                    <!-- 过滤\查询按钮 -->
+                    <div class="filter-controls">
+                        <!-- 日期查询 -->
+                        <form action="{:url('ProductGroup/index')}" method="get" class="form-inline">
+                            <select class="form-control input-short input-sm select_cate_parent" name="select_cate_parent" style="float: left">
+                                <option value="0">全部</option>
+                                {volist name="cate_parent" id="vo"}
+                                    <option value="{$vo.id}">{$vo.name}</option>
+                                {/volist}
+                            </select>
+                            <button type="submit" class="btn btn-default btn-sm" id="searchFormSubmit"><i class="fa fa-search"></i>{:L('BTN_SEARCH')}</button>
+                        </form>
+                    </div>
+                    <a class="btn btn-primary btn-sm add" href="javascript:void(0)">
+                        <i class="fa fa-plus"></i>
+                        添加商品
+                    </a>
+                    <table id="exist">
+                        <tr><th>商品名称</th><th>起始时间</th><th>终止时间</th><th>活动价</th><th>显示顺序</th><th>操作</th></tr>
+                        <tr class="new" style="display:none">
+                            <td>
+                                <a class="btn btn-primary btn-sm" data-toggle="modal" data-target="#myModal" data-backdrop="false">选择商品</a>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="text" class="form-control input-normal input-sm startdatetime" name="new_start_time"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="text" class="form-control input-normal input-sm enddatetime" name="new_end_time"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="number" class="form-control input-normal input-sm" name="new_price"/>
+                                </div>
+                            </td>
+                            <td>
+                                <div>
+                                    <input type="number" class="form-control input-normal input-sm" name="new_display_order"/>
+                                </div>
+                            </td>
+                            <td>
+                                <a target-form="validateForm" class="ajax-post btn-sm btn btn-primary" href="{:url('ProductGroup/add')}" autofocus="autofocus">确认添加</a>
+                                <a class="btn btn-default btn-sm" href="{:url('ProductGroup/index',array('id' => $id))}">取消</a>
+                            </td>
+                        </tr>
+                        {volist name="group" id="vo"}
+                            <tr>
+                                <td>{$vo['name']}</td>
+                                <td>
+                                    <div>
+                                        <input type="text" class="form-control input-normal input-sm startdatetime" name="start_time_{$vo['p_id']}" value="{$vo['start_time']|date='Y-m-d G:i:s',###}" disabled="disabled"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <input type="text" class="form-control input-normal input-sm enddatetime" name="end_time_{$vo['p_id']}" value="{$vo['end_time']|date='Y-m-d G:i:s',###}" disabled="disabled"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <input type="text" class="form-control input-normal input-sm price" name="price_{$vo['p_id']}" value="{$vo['price']}" disabled="disabled"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div>
+                                        <input type="number" class="form-control input-normal input-sm" name="display_order_{$vo['p_id']}" value="{$vo['display_order']}" disabled="disabled"/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <a href="javascript:void(0)" class="btn btn-default btn-sm edit" data-id="{$vo['p_id']}"><i class="fa fa-edit"></i>编辑</a>
+                                    <a href="{:url('ProductGroup/delete',array('id'=>$vo['id']))}"  class="ajax-get btn btn-danger btn-sm confirm delete" ><i class="fa fa-trash-o"></i>删除</a>
+                                    <a target-form="validateForm" class="ajax-post btn-sm btn btn-primary hide save" href="{:url('ProductGroup/edit')}" autofocus="autofocus"><i class="fa fa-save"></i>保存</a>
+                                    <a class="btn btn-default btn-sm hide cancel" href="{:url('ProductGroup/index',array('id' => $id))}">取消</a>
+                                </td>
+                            </tr>
+                        {/volist}
+                    </table>
+                    <div>{$group_show}</div>
+                </fieldset>
+            </form>
+            <!-- form -->
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 20px;">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel">选择商品</h4>
+                        </div>
+                        <div class="modal-body">
+                            <select class="form-control input-short input-sm" id="select_cate_parent" name="select_cate_parent" style="float: left">
+                                <option value="0">全部</option>
+                                {volist name="cate_parent" id="vo"}
+                                    <option value="{$vo.id}">{$vo.name}</option>
+                                {/volist}
+                            </select>
+                            <table id="select">
+                                <!--<tr>
+                                    <th width="20%">商品id</th>
+                                    <th width="60%">商品名称</th>
+                                    <th width="20">操作</th>
+                                </tr>-->
+                                {volist name="product" id="vo"}
+                                    <tr>
+                                        <td class="selected_id">
+                                            {$vo.id}
+                                        </td>
+                                        <td class="selected_name">
+                                            {$vo.name}
+                                        </td>
+                                        <td>
+                                            <a type="button" class="btn btn-primary btn-sm selected" href="javascript:void(0)" data-dismiss="modal">选择</a>
+                                        </td>
+                                    </tr>
+                                {/volist}
+                            </table>
+                        </div>
+                        <!--<div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                            <button type="button" class="btn btn-primary">确认</button>
+                        </div>-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!-- END admin-main-content -->
+    </div>
+    <!-- END admin-main-->
+{/block}
+
+{block name="area_footer"}
+
+    <script>
+        function getGroupId(g,k){
+            if(g.checked){
+                $(".group-time-"+k).show();
+                $(".group-price").show();
+            }else{
+                $(".group-time-"+k).hide();
+                $(".group-price").hide();
+            }
+        }
+        $(function(){
+
+            $(".modal-body").on("click","#show a",function(){
+                //取参数
+                var p = $(this).attr("value");
+                p = parseInt(p);
+                var select_cate_parent = $('#select_cate_parent').val();
+                $('#select').text("");
+                if($(this).attr("class").indexOf("prev-page") > 0){
+                    p = p - 1;
+                    if(p <= 0){
+                        p = 1;
+                    }
+                }else{
+                    p = p + 1;
+                    var page = parseInt($(this).attr('data-page'));
+                    if(p >= page){
+                        p = page;
+                    }
+                }
+                //ajax传值
+                $.ajax( {
+                    url:"{:url('ProductGroup/getProduct')}",
+                    data:{
+                        select_cate_parent:select_cate_parent,
+                        p:p
+                    },
+                    type:'post',
+                    dataType:'json',
+                    success:function(data) {
+                        //console.log(data);
+                        var tr = "";
+                        var list = data.info.list;
+                        for(var i in list){
+                            var tmptr = "<tr><td class='selected_id'>" + list[i].id + "</td><td class='selected_name'>" + list[i].name;
+                            if(list[i].able == 1){
+                                tmptr = tmptr + "</td><td><a type='button' class='btn btn-primary btn-sm selected' href='javascript:void(0)' data-dismiss='modal'>选择</a></td></tr>";
+                            }else{
+                                tmptr = tmptr + "</td><td><a type='button' class='btn btn-primary btn-sm selected' href='javascript:void(0)' data-dismiss='modal' disabled='disabled'>选择</a></td></tr>";
+                            }
+
+                            tr = tr + tmptr;
+                        }
+                        $('#select').text("");
+                        $('#select').append("<tr><th width='20%'>商品id</th><th width='60%'>商品名称</th><th width='20'>操作</th></tr>");
+                        $('#select').append(tr);
+                        $('#show').remove();
+                        var show = "<div id='show'>共"+ data.info.count +"条记录<a class='btn-sm btn btn-primary prev-page' data-page='"+ data.info.page +"' value='"+ data.info.p +"'>上一页</a><a class='btn-sm btn btn-primary next-page' data-page='"+ data.info.page +"' value='"+ data.info.p +"'>下一页</a>当前"+ data.info.p +"/"+ data.info.page +"页</div>";
+                        $('.modal-body').append(show);
+                    },
+                    error : function() {
+                        alert("数据异常！");
+                    }
+                });
+            });
+
+            $('#select_cate_parent').change(function(){
+                var select_cate_parent = $('#select_cate_parent').val();
+                $('#select').text("");
+                $.ajax( {
+                    url:"{:url('ProductGroup/getProduct')}",
+                    data:{
+                        select_cate_parent:select_cate_parent
+                    },
+                    type:'post',
+                    dataType:'json',
+                    success:function(data) {
+                        //console.log(data);
+                        var tr = "";
+                        var list = data.info.list;
+                        for(var i in list){
+                            var tmptr = "<tr><td class='selected_id'>" + list[i].id + "</td><td class='selected_name'>" + list[i].name;
+                            if(list[i].able == 1){
+                                tmptr = tmptr + "</td><td><a type='button' class='btn btn-primary btn-sm selected' href='javascript:void(0)' data-dismiss='modal'>选择</a></td></tr>";
+                            }else{
+                                tmptr = tmptr + "</td><td><a type='button' class='btn btn-primary btn-sm selected' href='javascript:void(0)' data-dismiss='modal' disabled='disabled'>选择</a></td></tr>";
+                            }
+
+                            tr = tr + tmptr;
+                        }
+                        $('#select').text("");
+                        $('#select').append("<tr><th width='20%'>商品id</th><th width='60%'>商品名称</th><th width='20'>操作</th></tr>");
+                        $('#select').append(tr);
+                        $('#show').remove();
+                        var show = "<div id='show'>共"+ data.info.count +"条记录<a class='btn-sm btn btn-primary prev-page' data-page='"+ data.info.page +"' value='"+ data.info.p +"'>上一页</a><a class='btn-sm btn btn-primary next-page' data-page='"+ data.info.page +"' value='"+ data.info.p +"'>下一页</a>当前"+ data.info.p +"/"+ data.info.page +"页</div>";
+                        $('.modal-body').append(show);
+                    },
+                    error : function() {
+                        alert("数据异常！");
+                    }
+                });
+            });
+
+            //点击类目ajax请求
+           /* $('#select_cate_parent option').click(function(){
+                var select_cate_parent = $('#select_cate_parent').val();
+                $('#select').text("");
+                $.ajax( {
+                    url:"{:url('ProductGroup/getProduct')}",
+                    data:{
+                        select_cate_parent:select_cate_parent
+                    },
+                    type:'post',
+                    dataType:'json',
+                    success:function(data) {
+                        //console.log(data);
+                        var tr = "";
+                        var list = data.info.list;
+                        for(var i in list){
+                            var tmptr = "<tr><td class='selected_id'>" + list[i].id + "</td><td class='selected_name'>" + list[i].name;
+                            if(list[i].able == 1){
+                                tmptr = tmptr + "</td><td><a type='button' class='btn btn-primary btn-sm selected' href='javascript:void(0)' data-dismiss='modal'>选择</a></td></tr>";
+                            }else{
+                                tmptr = tmptr + "</td><td><a type='button' class='btn btn-primary btn-sm selected' href='javascript:void(0)' data-dismiss='modal' disabled='disabled'>选择</a></td></tr>";
+                            }
+
+                            tr = tr + tmptr;
+                        }
+                        $('#select').text("");
+                        $('#select').append("<tr><th width='20%'>商品id</th><th width='60%'>商品名称</th><th width='20'>操作</th></tr>");
+                        $('#select').append(tr);
+                        $('#show').remove();
+                        var show = "<div id='show'>共"+ data.info.count +"条记录<a class='btn-sm btn btn-primary prev-page' data-page='"+ data.info.page +"' value='"+ data.info.p +"'>上一页</a><a class='btn-sm btn btn-primary next-page' data-page='"+ data.info.page +"' value='"+ data.info.p +"'>下一页</a>当前"+ data.info.p +"/"+ data.info.page +"页</div>";
+                        $('.modal-body').append(show);
+                    },
+                    error : function() {
+                        alert("数据异常！");
+                    }
+                });
+            });*/
+
+            //ajax获取商品数据
+            $('#myModal').on('show.bs.modal', function (e) {
+                $.ajax( {
+                    url:"{:url('ProductGroup/getProduct')}",
+                    data:{
+
+                    },
+                    type:'post',
+                    dataType:'json',
+                    success:function(data) {
+                        //console.log(data);
+                        var tr = "";
+                        var list = data.info.list;
+                        for(var i in list){
+                            var tmptr = "<tr><td class='selected_id'>" + list[i].id + "</td><td class='selected_name'>" + list[i].name;
+                            if(list[i].able == 1){
+                                tmptr = tmptr + "</td><td><a type='button' class='btn btn-primary btn-sm selected' href='javascript:void(0)' data-dismiss='modal'>选择</a></td></tr>";
+                            }else{
+                                tmptr = tmptr + "</td><td><a type='button' class='btn btn-primary btn-sm selected' href='javascript:void(0)' data-dismiss='modal' disabled='disabled'>选择</a></td></tr>";
+                            }
+                            tr = tr + tmptr;
+                        }
+                        $('#select').text("");
+                        $('#select').append("<tr><th width='20%'>商品id</th><th width='60%'>商品名称</th><th width='20'>操作</th></tr>");
+                        $('#select').append(tr);
+                        $('#show').remove();
+                        var show = "<div id='show'>共"+ data.info.count +"条记录<a class='btn-sm btn btn-primary prev-page' data-page='"+ data.info.page +"' value='"+ data.info.p +"'>上一页</a><a class='btn-sm btn btn-primary next-page' data-page='"+ data.info.page +"' value='"+ data.info.p +"'>下一页</a>当前"+ data.info.p +"/"+ data.info.page +"页</div>";
+                        $('.modal-body').append(show);
+                    },
+                    error : function() {
+                        alert("数据异常！");
+                    }
+               });
+            });
+
+            $('.select_cate_parent').val({$select_cate_parent});
+
+            var flag = false;
+
+            $(":checked").each(function(){
+
+                if($(this).val()==5999){
+                    $(".group-time-4").show();
+                    $(".group-price").show();
+                }
+
+            });
+            $('.add').click(function(){
+                $('.new').css('display','');
+            });
+
+            $('.startdatetime').datetimepicker({
+                lang: 'ch',
+                format:'Y-m-d H:i:s',
+                // timepicker:false,
+            });
+            $('.enddatetime').datetimepicker({
+                lang: 'ch',
+                format:'Y-m-d H:i:s',
+                // timepicker:false,
+            });
+
+            $(".xdsoft_today_button").click();
+
+            $('#select').on("click",'.selected',function(){
+                var name = $(this).parent().parent().find('.selected_name').text();
+                var ele = '<input type="text" class="form-control input-normal input-sm" disabled="disabled" value='+name+' />';
+                $('.new td:first').text("");
+                $('.new td:first').append(ele);
+                $("input[name='p_id']").val($(this).parent().parent().find('.selected_id').text());
+            });
+
+            $('.edit').click(function(){
+                if(flag == true){
+                    return ;
+                }
+                flag = true;
+                //恢复为可编辑状态
+                $(this).parent().parent().find('td:eq(1)').find('input').removeAttr('disabled');
+                $(this).parent().parent().find('td:eq(2)').find('input').removeAttr('disabled');
+                $(this).parent().parent().find('td:eq(3)').find('input').removeAttr('disabled');
+                $(this).parent().parent().find('td:eq(4)').find('input').removeAttr('disabled');
+                //取商品id
+                var id = $(this).attr('data-id');
+                $('input[name="p_id"]').val(id);
+                //改变按钮
+                //取父元素节点
+                var par = $(this).parent();
+                par.find('.save').removeClass('hide');
+                par.find('.save').attr('data-id',id);
+                par.find('.cancel').removeClass('hide');
+                par.find('.edit').addClass('hide');
+                par.find('.delete').addClass('hide');
+            });
+
+            $('.save').click(function(){
+                var id = $(this).attr('data-id');
+                $('input[name="p_id"]').val(id);
+            });
+
+        });
+
+
+    </script>
+{/block}

@@ -1,0 +1,30 @@
+{extend name="template/base_default"}
+{block name="header"}
+<link rel="stylesheet" href="__CSS__/common.css">
+{/block}
+{block name="body"}
+<div class="content">
+     登录接口测试
+     <form action="{:url()}" method="post">
+         <fieldset>
+             <legend>登录参数</legend>
+             <div>
+                 <div>
+                     <label>小于24位的字符串(由网银开户后获得)</label>
+                     <input name="user_id" value="13484379290" placeholder="小于24位的字符串(由网银开户后获得)"/>
+                 </div>
+                 <div>
+                     <label>6位字符串(由网银开户后获得)</label>
+                     <input name="user_pwd" value="346551" placeholder="6位字符串(由网银开户后获得)"/>
+                 </div>
+                 <div>
+                     <button type="submit">登录</button>
+                  </div>
+             </div>
+         </fieldset>
+     </form>
+</div>
+{include file="template/nav_bar"}
+{/block}
+{block name="footer"}
+{/block}

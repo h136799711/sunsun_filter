@@ -1,0 +1,68 @@
+.add-btn{
+    height:70px;
+    background: white;
+    margin:10px 0;
+    line-height:70px;
+    border-top:1px solid #f1eaea;
+    border-bottom:1px solid #f1eaea;
+}
+.add-btn #plus-circle-o{
+    float:left;
+    margin-left:10px;
+    font-size: 16px;
+    font-weight:600;
+    color:#42b9fd
+}
+.add-btn .add-btn-text1{
+    color:black;
+    font-size: 16px;
+    font-weight:600;
+    float:left;
+    margin-left:10px
+}
+.add-btn #right{
+    float:right;
+    margin-right:20px;
+    font-size: 14px;
+}
+.add-btn .add-btn-text2{
+    font-size: 16px;
+    float:right;
+    margin-right:10px
+}
+.address-list{
+    height:110px;
+    background: white;
+    margin:10px 0;
+    border-top:1px solid #f1eaea;
+    border-bottom:1px solid #f1eaea;
+}
+.address-list-msg{
+    float:left;
+    width:90%;
+}
+.address-list-msg-name{
+    margin-top: 20px;
+}
+.address-list-msg-name .tag{
+    border-radius: 4px;
+    background: #42b9fd;
+    color:white;
+    padding:5px 10px;
+    margin:0 10px;
+}
+.address-list-msg-name .name,.address-list-msg-name .phone{
+    margin:0 10px;
+    font-size: 15px;
+    font-weight: 600;
+}
+.address-list-msg-address{
+    margin-top:20px;
+    padding:0 10px;
+    font-size:13px;
+}
+.address-list-right{
+    float:right;
+    margin-right:16px;
+    line-height:110px;
+}

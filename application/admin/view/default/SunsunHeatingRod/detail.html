@@ -1,0 +1,262 @@
+{extend name="default/template/base_index" /}
+
+
+{block name="area_header"}
+<link rel="stylesheet" type="text/css" href="__CDN__/bootstrap-switch/css/bootstrap3/bootstrap-switch.min.css" />
+<script type="text/javascript" src="__CDN__/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+	<script type="text/javascript" src="__CDN__/jquery-validation/1.13.1/jquery.validate.min.js"></script>
+	<script type="text/javascript" src="__CDN__/jquery-validation/1.13.1/localization/messages_zh.min.js"></script>
+
+	<style type="text/css">
+		.alert-mini{
+			padding: 5px;
+			font-size: 10px;
+		}
+		input.error {
+			border: 1px solid red;
+		}
+		
+		label.checked {
+			
+			padding-left: 25px;
+		}
+		
+		label.error {
+			padding-left: 25px;
+			padding-bottom: 2px;
+			font-weight: bold;
+			color: #EA5200;
+		}
+	</style>
+
+{/block}
+
+{block name="area_body"}
+	{include file="default/Widget/topbar" /}
+	<div class="admin-main container-fluid">
+		{include file="default/Widget/left" /}
+		<div class="admin-main-content">
+			{include file="default/Widget/breadcrumb" /}
+			<div class="margin-sm clearfix">
+				<a class="btn btn-default btn-sm" href="{$_g_ret_url}" target="_self"><i class="fa fa-reply"></i>返回</a>
+
+			</div>
+			<ul class="nav nav-tabs">
+				<li class="active" ><a href="#role" data-toggle="tab">1.设备状态</a></li>
+				<li><a href="#base" data-toggle="tab">2. 基本信息</a></li>
+				<li><a href="#login_session" data-toggle="tab">3. 关联用户</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div class="tab-pane fade" id="base">
+					<!-- 带验证 form -->
+					<form id="registerForm" class="form-horizontal well validateForm">
+						<fieldset>
+
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备id</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.did}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备版本</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.ver}</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备通信密码</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.pwd}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备控制密码</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.ctrl_pwd}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">最近登录时间</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo['last_login_time']|date='Y-m-d H:i:s',###}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备心跳周期</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.hb}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">tcp通道编号</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.tcp_client_id}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备最近登录ip</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.last_login_ip}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备心跳周期</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.hb}</div>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+					<!-- form -->
+				</div>
+				<div class="tab-pane fade in active" id="role">
+					<form class="form-horizontal well validateForm">
+						<fieldset>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备id</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.did}</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">功率值</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.pwr}(W)</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">温度范围设置（10倍）</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo['t_set']/10}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">实时温度推送周期</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.t_cyc}分钟</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">警报提示设置（开关）</label>
+								<div class="col-md-10 col-lg-10">
+									<input data-size="mini" class="j_cl_en" type="checkbox" name="switch_cl_cfg" {eq name="devinfo['cfg']" value="1"}checked{/eq}>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">实时温度</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">
+										{$devinfo['t']/10}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">是否故障</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.fault}</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备是否锁机</label>
+								<div class="col-md-10 col-lg-10">
+									<input data-size="mini" class="j_cl_en" type="checkbox" name="switch_dev_lock" {eq name="devinfo['dev_lock']" value="1"}checked{/eq} />
+
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">更新进度</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">
+										<div class="progress" style="width: 160px;">
+											<div class="progress-bar" role="progressbar" aria-valuenow="{$devinfo.upd_state}" aria-valuemin="0" aria-valuemax="100" style="width: {$devinfo.upd_state}%;">{$devinfo.upd_state}%
+											</div>
+										</div>
+
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-2 col-lg-2 control-label">设备更新状态</label>
+								<div class="col-md-10 col-lg-10">
+									<div class="h4">{$devinfo.device_state}</div>
+								</div>
+							</div>
+
+						</fieldset>
+					</form>
+				</div>
+				<div class="tab-pane fade" id="login_session">
+					<table class="table table-striped table table-hover  table-condensed">
+						<thead>
+						<tr>
+							<th>
+								用户id
+							</th>
+							<th>
+								用户昵称
+							</th>
+							<th>
+								用户最近登录时间
+							</th>
+							<th>
+								该用户设定的设备昵称
+							</th>
+							<th>
+								操作
+							</th>
+						</tr>
+						</thead>
+						<tbody>
+						{empty name="owner"}
+						<tr>
+							<td colspan="8" class="text-center">{:L('NO_DATA')}</td>
+						</tr>
+						{else/}
+						{volist name="owner" id="vo"}
+						<tr>
+							<td><a href="{:url('Member/view',array('id'=>$vo['uid']))}?ret_url=__SELF__" >{$vo.uid}</a></td>
+							<td>{$vo.user_nickname}</td>
+							<td>{$vo.update_time|date='Y-m-d H:i:s',###}</td>
+							<td>{$vo.device_nickname}</td>
+							<td>
+								<a href="{:url('SunsunUserDevice/del',['id'=>$vo['id']])}" class="btn btn-xs btn-danger ajax-get confirm">移除</a>
+
+							</td>
+							{/volist}
+							{/empty}
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+
+
+		</div>
+		<!-- END admin-main-content -->
+	</div>
+	<!-- END admin-main-->
+{/block}
+
+{block name="area_footer"}
+<script type="text/javascript">
+	$(function () {
+		$(".j_cl_en").bootstrapSwitch({
+			'disabled':true,
+			'onSwitchChange':function (event, state) {
+				if(state){
+					//true
+
+				}else{
+					//false
+				}
+				console.log(event, state);
+			}
+		});
+	});
+</script>
+
+{/block}

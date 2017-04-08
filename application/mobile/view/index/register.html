@@ -1,0 +1,97 @@
+{extend name="template/base_default"}
+{block name="header"}
+<link rel="stylesheet" href="__CSS__/common.css">
+<link rel="stylesheet" href="__CSS__/login/index.css">
+{/block}
+{block name="body"}
+<div class="login">
+    <div class="login-username">
+        <div class="login-username-img">
+            <img src="__IMG__/user/User.png">
+        </div>
+        <div class="login-username-ipt">
+            <input id="mobile" type="text" placeholder="请输入手机号">
+        </div>
+    </div>
+    <div class="login-username">
+        <div class="login-username-img">
+            <img src="__IMG__/user/yanjing.png">
+        </div>
+        <div class="login-username-ipt">
+            <input id="code" type="text" placeholder="请输入验证码">
+        </div>
+        <button id="get_code">获取验证码</button>
+    </div>
+    <div class="login-username">
+        <div class="login-username-img">
+            <img src="__IMG__/user/Password.png">
+        </div>
+        <div class="login-username-ipt">
+            <input id="psw" type="password" placeholder="请输入密码">
+        </div>
+    </div>
+    <div class="login-xieyi">温馨提示：注册后即代表您同意 <a href="https://api.ryzcgf.com/public/web.php/web/copyright">《用户服务协议》</a></div>
+    <button id="submit" class="login-btn">完成</button>
+</div>
+{include file="template/nav_bar"}
+{/block}
+{block name="footer"}
+<script type="text/javascript" src="__JS__/public.js"></script>
+<script type="text/javascript">
+    $.toast.prototype.defaults.duration = 1500;
+    $('#get_code').click(function(){
+        var mobile = $('#mobile').val();
+        if(!mobile||isNaN(mobile)||mobile.length != 11){
+            $.toast("请输入11位手机号", "cancel");
+            return;
+        }
+        var $this = $(this);
+        $this.addClass('weui-btn_disabled').attr('disabled','disabled');
+        ajax_post(getBaseUrl()+'/index/send_reg_sms',{mobile: mobile},{
+            success:function(data){
+                $.toptip(data.msg, 'success');
+                $this.removeClass('weui-btn_disabled').removeAttr("disabled");
+            },
+            error:function(data){
+                $.toptip(data.msg, 'error');
+                $this.removeClass('weui-btn_disabled').removeAttr("disabled");
+            }
+        });
+
+    });
+    $('#submit').click(function(){
+        var mobile = $('#mobile').val();
+        var code = $('#code').val();
+        var psw = $('#psw').val();
+        if(!mobile||isNaN(mobile)||mobile.length != 11){
+            $.toast("请输入11位手机号", "cancel");
+            return;
+        }
+        if(code.length ==0){
+            $.toast("请输入验证码", "cancel");
+            return;
+        }
+        if(psw.length <6 || psw.length>32 ){
+            $.toast("请输入6-32位的密码", "cancel");
+            return;
+        }
+        var data = {
+            mobile: mobile,
+            psw: psw,
+            code: code
+        };
+        var $this = $(this);
+        $this.addClass('weui-btn_disabled').attr('disabled','disabled');
+        ajax_post(getBaseUrl()+'/index/register',data,{
+            success:function(data){
+                $.toptip(data.msg, 'success');
+                $this.removeClass('weui-btn_disabled').removeAttr("disabled");
+            },
+            error:function(data){
+                $.toptip(data.msg, 'error');
+                $this.removeClass('weui-btn_disabled').removeAttr("disabled");
+            }
+        });
+    });
+</script>
+{/block}

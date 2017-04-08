@@ -1,0 +1,71 @@
+.user-head{
+    height: 160px;
+    background-image: url('../../img/user/bg_image.png');
+}
+.user-head-img{
+    float:left;
+    height:100px;
+    width:100px;
+    border-radius: 100px;
+    margin:30px 5% 30px 15%
+}
+.user-head-img img{
+    width:100%;
+    height:100%;
+    border-radius: 100px;
+}
+.user-head-msg{
+    float:left;
+    width:40vw;
+    margin-top: 60px;
+    color:white;
+}
+.user-head-right{
+    float:right;
+    margin:80px 20px 0 0;
+    color: #29e6ff;
+    font-weight:600;
+    font-size: 20px;
+}
+
+.user-body{
+    padding-bottom: 70px;
+}
+.user-body-item{
+    height:60px;
+    width:100%;
+    line-height:60px;
+    border-bottom:1px solid #ededed;
+    overflow: hidden;
+    background: white;
+}
+.user-body-icon{
+    float:left;
+    margin:5px 0 0 40px;
+    width:24px;
+    height: 24px;
+}
+.user-body-icon img{
+    height:100%;
+    width:100%
+}
+.user-body-text{
+    float:left;
+    margin-left: 20px;
+}
+.user-body-right{
+    float:right;
+    margin:22px 20px 0 0;
+    font-size: 13px;
+}
+.user-body button{
+    margin-top:80px;
+    background: #ff3446;
+    border:none;
+    border-radius: 4px;
+    width:80%;
+    height: 40px;
+    line-height: 40px;
+    margin-left: 10%;
+    color:white;
+}
