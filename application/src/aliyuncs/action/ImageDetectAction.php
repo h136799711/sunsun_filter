@@ -30,8 +30,8 @@ class ImageDetectAction extends BaseAction
            return $this->error('错误的参数');
         }
 
-        $accessKeyId = "LTAI9fWqXTAbknLF";
-        $accessKeySecret = "48PBRJx9QRkIIxl4vwMAKjSUFR0V9c";
+        $accessKeyId = "";
+        $accessKeySecret = "";
 
         //请替换成你自己的accessKeyId、accessKeySecret
         $iClientProfile = \DefaultProfile::getProfile("cn-hangzhou", $accessKeyId, $accessKeySecret);
