@@ -5,7 +5,7 @@
         "topthink/think-testing": "^1.0",
         "mobiledetect/mobiledetectlib": "^2.8",
         "topthink/think-queue": "^1.1",
-        "topthink/framework": "5.0.7",
+        "topthink/framework": "5.0.25",
         "itboye/sunsun_tcp": "dev-master",
         "phpunit/phpunit": "4.8.*"
     }
